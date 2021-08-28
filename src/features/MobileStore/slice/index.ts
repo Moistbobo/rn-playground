@@ -13,14 +13,44 @@ export const getItems = createAsyncThunk(
 
 type State = {
   items?: ItemType[];
+
+  cart: {[index: string]: number};
 };
 
-const initialState: State = {};
+const initialState: State = {
+  cart: {},
+};
 
 const slice = createSlice({
   name: 'mobileStore',
   initialState,
-  reducers: {},
+  reducers: {
+    addCart: (state, action) => {
+      console.log('got action');
+      const {cart} = state;
+      const {
+        payload: {_id, quantity},
+      } = action;
+
+      if (cart[_id]) {
+        return {
+          ...state,
+          cart: {
+            ...cart,
+            [_id]: cart[_id] + quantity,
+          },
+        };
+      } else {
+        return {
+          ...state,
+          cart: {
+            ...cart,
+            [_id]: quantity,
+          },
+        };
+      }
+    },
+  },
   extraReducers: builder => {
     builder.addMatcher(isAllOf(getItems.fulfilled), (state, action) => {
       return {
