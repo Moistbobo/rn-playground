@@ -1,11 +1,11 @@
 import React from 'react';
 import Landing from 'features/Landing';
-import MobileStore from 'navigation/RootNavigator/MobileStore';
+import MobileStoreStack from 'navigation/RootNavigator/MobileStoreStack';
 import {createStackNavigator} from '@react-navigation/stack';
 
 export type RootNavigatorPages = {
   Landing: undefined;
-  MobileStore: undefined;
+  MobileStoreStack: undefined;
 };
 
 const Stack = createStackNavigator<RootNavigatorPages>();
@@ -19,7 +19,7 @@ const Index = () => {
       }}
     >
       <Stack.Screen name="Landing" component={Landing} />
-      <Stack.Screen name="MobileStore" component={MobileStore} />
+      <Stack.Screen name="MobileStore" component={MobileStoreStack} />
     </Stack.Navigator>
   );
 };

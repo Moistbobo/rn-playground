@@ -1,7 +1,10 @@
 import React from 'react';
-import {View, TouchableOpacity, Text, StyleSheet, Image} from 'react-native';
+import {TouchableOpacity, Text, StyleSheet, Image} from 'react-native';
+import {SharedElement} from 'react-navigation-shared-element';
+import Design from 'features/MobileStore/config/Design';
 
 export type Props = {
+  _id: string;
   name: string;
   img: string;
   price: number;
@@ -9,11 +12,15 @@ export type Props = {
   onPress: () => void;
 };
 
-const ProductItem = ({name, onPress, img}: Props) => {
+const ProductItem = ({_id, name, onPress, img}: Props) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.productItem}>
-      <Image source={{uri: img}} style={styles.image} />
-      <Text style={styles.name}>{name}</Text>
+      <SharedElement id={_id}>
+        <Image source={{uri: img}} style={styles.image} />
+      </SharedElement>
+      <SharedElement id={`${_id}-name`}>
+        <Text style={styles.name}>{name}</Text>
+      </SharedElement>
     </TouchableOpacity>
   );
 };
@@ -25,6 +32,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 16,
     padding: 32,
+    borderWidth: 1,
+    borderColor: Design.colors.paleOrange,
   },
   image: {
     width: 150,
@@ -32,7 +41,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   name: {
-    color: 'black',
+    color: Design.colors.reddishBrown,
     fontSize: 14,
     fontWeight: 'bold',
   },

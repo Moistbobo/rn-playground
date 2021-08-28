@@ -1,18 +1,20 @@
 import React from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
 import {ItemType} from 'types/MobileStoreTypes';
-import ProductItem from 'features/MobileStore/pages/ProductListing/components/ProductItem';
+import ProductItem from 'features/MobileStore/pages/ItemListing/components/ProductItem';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch} from 'store/RootStore';
 import {selectItems} from 'features/MobileStore/slice/selectors';
 import {getItems} from 'features/MobileStore/slice';
+import {useNavigation} from '@react-navigation/native';
+import Design from 'features/MobileStore/config/Design';
 
-const ProductListing = () => {
+const ItemListing = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const {navigate} = useNavigation();
   const items = useSelector(selectItems);
 
   const refreshProducts = () => {
-    console.log('test');
     dispatch(getItems());
   };
 
@@ -22,7 +24,7 @@ const ProductListing = () => {
 
   const renderItem = ({item}: {item: ItemType}) => {
     const onPress = () => {
-      console.log(item);
+      navigate('ItemDetail', {itemId: item._id, name: item.name});
     };
 
     return <ProductItem {...item} onPress={onPress} />;
@@ -30,6 +32,7 @@ const ProductListing = () => {
 
   return (
     <FlatList
+      style={styles.flatlist}
       data={items}
       horizontal
       renderItem={renderItem}
@@ -42,10 +45,14 @@ const ProductListing = () => {
 };
 
 const styles = StyleSheet.create({
+  flatlist: {
+    flex: 1,
+    backgroundColor: Design.colors.white,
+  },
   contentContainerStyle: {
     alignItems: 'center',
     paddingHorizontal: 32,
   },
 });
 
-export default ProductListing;
+export default ItemListing;
