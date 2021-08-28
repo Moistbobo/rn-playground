@@ -1,14 +1,14 @@
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Landing from 'features/Landing';
 import MobileStore from 'navigation/RootNavigator/MobileStore';
+import {createStackNavigator} from '@react-navigation/stack';
 
 export type RootNavigatorPages = {
   Landing: undefined;
   MobileStore: undefined;
 };
 
-const Stack = createNativeStackNavigator<RootNavigatorPages>();
+const Stack = createStackNavigator<RootNavigatorPages>();
 
 const Index = () => {
   return (
