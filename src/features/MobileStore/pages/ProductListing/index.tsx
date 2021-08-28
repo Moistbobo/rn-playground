@@ -2,17 +2,18 @@ import React from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
 import {ItemType} from 'types/MobileStoreTypes';
 import ProductItem from 'features/MobileStore/pages/ProductListing/components/ProductItem';
-import MobileStoreService from 'services/MobileStoreService';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppDispatch} from 'store/RootStore';
+import {selectItems} from 'features/MobileStore/slice/selectors';
+import {getItems} from 'features/MobileStore/slice';
 
 const ProductListing = () => {
-  const [items, setItems] = React.useState<ItemType[] | undefined>(undefined);
+  const dispatch = useDispatch<AppDispatch>();
+  const items = useSelector(selectItems);
 
-  const refreshProducts = async () => {
-    setItems(undefined);
-
-    const response = await MobileStoreService.getItems();
-
-    setItems(response.data.items);
+  const refreshProducts = () => {
+    console.log('test');
+    dispatch(getItems());
   };
 
   React.useEffect(() => {

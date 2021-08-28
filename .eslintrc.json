@@ -13,7 +13,8 @@
   "rules": {
     "react/jsx-filename-extension": [1, {"extensions": [".jsx", ".tsx"]}],
     "import/extensions": 0,
-    "react/jsx-props-no-spreading": 0
+    "react/jsx-props-no-spreading": 0,
+    "react-hooks/exhaustive-deps": 0
   },
   "settings": {
     "import/resolver": {
