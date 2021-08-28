@@ -26,7 +26,7 @@ module.exports = {
           lib: './src/lib/',
           assets: './src/assets/',
           components: './src/components/',
-          config: './src/config',
+          config: './src/config/',
         },
       },
     ],

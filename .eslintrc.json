@@ -6,11 +6,13 @@
   "extends": ["airbnb", "@react-native-community"],
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
-  "rules": {
-  },
   "globals": {
     "window": true,
     "fetch": false
+  },
+  "rules": {
+    "react/jsx-filename-extension": [1, {"extensions": [".jsx", ".tsx"]}],
+    "import/extensions": 0
   },
   "settings": {
     "import/resolver": {
