@@ -9,30 +9,32 @@ export type Props = {
   onPress: () => void;
 };
 
-const ProductItem = ({name, onPress, img, price, description}: Props) => {
+const ProductItem = ({name, onPress, img}: Props) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onPress} style={styles.productItem}>
       <Image source={{uri: img}} style={styles.image} />
-      <View>
-        <Text>${price}</Text>
-        <Text>{name}</Text>
-        <Text>{description}</Text>
-      </View>
+      <Text style={styles.name}>{name}</Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   productItem: {
-    backgroundColor: 'gray',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
     borderRadius: 16,
-    padding: 8,
-    flexDirection: 'row',
+    padding: 32,
   },
   image: {
     width: 150,
     height: 150,
     resizeMode: 'contain',
+  },
+  name: {
+    color: 'black',
+    fontSize: 14,
+    fontWeight: 'bold',
   },
 });
 
