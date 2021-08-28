@@ -14,6 +14,7 @@ import {MobileStorePages} from 'navigation/RootNavigator/MobileStoreStack';
 import {SharedElement} from 'react-navigation-shared-element';
 import AppConfig from 'config/AppConfig';
 import Design from 'features/MobileStore/config/Design';
+import BackButton from 'components/BackButton';
 
 export type ItemDetailParams = {
   itemId: string;
@@ -31,6 +32,7 @@ const ItemDetail = () => {
 
   return (
     <View style={styles.container}>
+      <BackButton tintColor={Design.colors.paleBrown} />
       <SharedElement id={item._id}>
         <Image source={{uri: item.img}} style={styles.image} />
       </SharedElement>
