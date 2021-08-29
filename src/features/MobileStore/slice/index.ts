@@ -26,7 +26,6 @@ const slice = createSlice({
   initialState,
   reducers: {
     addCart: (state, action) => {
-      console.log('got action');
       const {cart} = state;
       const {
         payload: {_id, quantity},
@@ -49,6 +48,41 @@ const slice = createSlice({
           },
         };
       }
+    },
+    editCart: (state, action) => {
+      const {cart} = state;
+
+      const {
+        payload: {_id, quantity},
+      } = action;
+
+      return {
+        ...state,
+        cart: {
+          ...cart,
+          [_id]: quantity,
+        },
+      };
+    },
+    removeItemFromCart: (state, action) => {
+      const {cart} = state;
+
+      const {
+        payload: {_id},
+      } = action;
+
+      const newCart = {
+        ...cart,
+      };
+
+      delete newCart[_id];
+
+      return {
+        ...state,
+        cart: {
+          ...newCart,
+        },
+      };
     },
   },
   extraReducers: builder => {

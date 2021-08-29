@@ -3,6 +3,7 @@ import {
   ColorValue,
   Image,
   ImageSourcePropType,
+  ImageStyle,
   StyleSheet,
   TouchableOpacity,
   ViewStyle,
@@ -25,6 +26,11 @@ type Props = {
   image: ImageSourcePropType;
 
   /**
+   * Override image style
+   */
+  imageStyle?: ImageStyle;
+
+  /**
    * Callback to handle the button press.
    */
   onPress: () => void;
@@ -33,13 +39,19 @@ type Props = {
 /**
  * A component that makes an image pressable with a callback.
  */
-const ImageButton = ({containerStyle, tintColor, image, onPress}: Props) => {
+const ImageButton = ({
+  containerStyle,
+  tintColor,
+  image,
+  onPress,
+  imageStyle,
+}: Props) => {
   return (
     <TouchableOpacity
       onPress={onPress}
       style={[containerStyle || styles.defaultContainerStyle]}
     >
-      <Image style={[styles.image, {tintColor}]} source={image} />
+      <Image style={[imageStyle || styles.image, {tintColor}]} source={image} />
     </TouchableOpacity>
   );
 };
