@@ -10315,6 +10315,11 @@ react-native-config@^1.4.4:
   resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-1.4.4.tgz#e0e10802d1e61ef051040c84dfd19f85a5984620"
   integrity sha512-bu47sJHn/HrB7COAWBI8DieAhrbFLINHFE2HBCcVkDu0Y5ScrMs6vL+jhIm+pMSgxouseLhXG8h7xYYpxE38PA==
 
+react-native-default-preference@^1.4.3:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/react-native-default-preference/-/react-native-default-preference-1.4.3.tgz#3c6411d32ea4ebc5286fbf5915546fc57a6014f6"
+  integrity sha512-sQDYwGEdxwKwXKP/8Intc81FyH33Rv8ZvOxdmPX4NM75RAIVeBc13pdabEqycAimNZoY5IDvGp4o1cTTa5gNrA==
+
 react-native-flash-message@^0.1.23:
   version "0.1.23"
   resolved "https://registry.yarnpkg.com/react-native-flash-message/-/react-native-flash-message-0.1.23.tgz#50a17201a2d9d6b22a2f174a97b22c30bff15638"

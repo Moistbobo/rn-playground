@@ -35,7 +35,9 @@ const ItemListing = () => {
     return <ProductItem {...item} onPress={onPress} />;
   };
 
-  const onPressShoppingCart = () => {};
+  const onPressShoppingCart = () => {
+    navigate('Cart');
+  };
 
   return (
     <View style={styles.container}>
