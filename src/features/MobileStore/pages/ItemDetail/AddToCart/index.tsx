@@ -19,9 +19,9 @@ type Props = {
 
 /**
  * Component that has add and minus buttons to select the quantity to add to cart.
+ * Minimum 1.
  */
 const AddToCart = ({onPressAdd}: Props) => {
-  // count is minimum 1
   const [count, setCount] = React.useState(1);
 
   const modCount = (mod: number) => () =>

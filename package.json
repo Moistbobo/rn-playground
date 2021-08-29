@@ -28,6 +28,7 @@
     "react-native-config": "^1.4.4",
     "react-native-flash-message": "^0.1.23",
     "react-native-gesture-handler": "^1.10.3",
+    "react-native-reanimated": "^2.2.0",
     "react-native-safe-area-context": "^3.3.0",
     "react-native-screens": "^3.6.0",
     "react-native-shared-element": "^0.8.2",
@@ -46,6 +47,8 @@
     "@storybook/addon-ondevice-knobs": "^5.3.25",
     "@storybook/react-native": "^5.3.25",
     "@storybook/react-native-server": "^5.3.23",
+    "@testing-library/jest-native": "^4.0.2",
+    "@testing-library/react-native": "^7.2.0",
     "@types/axios": "^0.14.0",
     "@types/jest": "^26.0.23",
     "@types/react-native": "^0.64.5",
@@ -64,6 +67,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-react-native": "^3.11.0",
     "jest": "^26.6.3",
+    "jest-transform-stub": "^2.0.0",
     "metro-react-native-babel-preset": "^0.66.0",
     "react-dom": "17.0.2",
     "react-native-codegen": "^0.0.7",
@@ -77,24 +81,36 @@
   },
   "jest": {
     "preset": "react-native",
+    "testEnvironment": "jsdom",
     "moduleFileExtensions": [
       "ts",
       "tsx",
       "js",
       "jsx",
       "json",
-      "node"
+      "node",
+      ".spec.tsx"
     ],
     "setupFiles": [
       "<rootDir>/jest/setup.js"
     ],
     "setupFilesAfterEnv": [
       "<rootDir>/jest/setupAfterEnv.js"
-    ]
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|@react-native|@react-native-community/progress-bar-android|@react-native-community/progress-view|react-navigation-shared-element)"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "jest-transform-stub",
+      "\\.(css|less)$": "jest-transform-stub"
+    }
   },
   "config": {
     "react-native-storybook-loader": {
-      "searchDir": ["./src", "./packages"],
+      "searchDir": [
+        "./src",
+        "./packages"
+      ],
       "pattern": "**/*.stories.tsx",
       "outputFile": "./storybook/storyLoader.js"
     }
