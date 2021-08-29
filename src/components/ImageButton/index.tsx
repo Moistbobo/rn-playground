@@ -9,15 +9,30 @@ import {
 } from 'react-native';
 
 type Props = {
+  /**
+   * Override the container style (i.e positioning).
+   */
   containerStyle?: ViewStyle;
 
+  /**
+   * Change the button's color.
+   */
   tintColor?: ColorValue;
 
+  /**
+   * The image of the button.
+   */
   image: ImageSourcePropType;
 
+  /**
+   * Callback to handle the button press.
+   */
   onPress: () => void;
 };
 
+/**
+ * A component that makes an image pressable with a callback.
+ */
 const ImageButton = ({containerStyle, tintColor, image, onPress}: Props) => {
   return (
     <TouchableOpacity

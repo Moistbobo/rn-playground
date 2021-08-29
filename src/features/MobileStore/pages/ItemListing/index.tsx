@@ -39,10 +39,13 @@ const ItemListing = () => {
 
   return (
     <View style={styles.container}>
-      <ShoppingCartButton
-        numCartItems={cartCount}
-        onPress={onPressShoppingCart}
-      />
+      <View style={styles.shoppingCartBtn}>
+        <ShoppingCartButton
+          numCartItems={cartCount}
+          onPress={onPressShoppingCart}
+        />
+      </View>
+
       <FlatList
         data={items}
         horizontal
@@ -60,6 +63,11 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: Design.colors.white,
     flex: 1,
+  },
+  shoppingCartBtn: {
+    alignSelf: 'flex-end',
+    marginTop: 20,
+    marginRight: 20,
   },
   contentContainerStyle: {
     alignItems: 'center',

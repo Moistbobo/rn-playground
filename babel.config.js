@@ -27,6 +27,7 @@ module.exports = {
           assets: './src/assets/',
           components: './src/components/',
           config: './src/config/',
+          storybook: './storybook/',
         },
       },
     ],

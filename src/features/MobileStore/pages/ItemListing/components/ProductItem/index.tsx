@@ -4,14 +4,41 @@ import {SharedElement} from 'react-navigation-shared-element';
 import Design from 'features/MobileStore/config/Design';
 
 export type Props = {
+  /**
+   * The ID of the item.
+   */
   _id: string;
+
+  /**
+   * The name of the item.
+   */
   name: string;
+
+  /**
+   * An image url to the item image.
+   */
   img: string;
+
+  /**
+   * The price of the item.
+   */
   price: number;
+
+  /**
+   * The item's description.
+   */
   description: string;
+
+  /**
+   * Callback for when the component is pressed.
+   */
   onPress: () => void;
 };
 
+/**
+ * A component that renders the product image and name.
+ * Shared Element, connects with ItemDetail page.
+ */
 const ProductItem = ({_id, name, onPress, img}: Props) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.productItem}>

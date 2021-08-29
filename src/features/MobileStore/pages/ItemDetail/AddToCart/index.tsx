@@ -11,10 +11,17 @@ import ImageButton from 'components/ImageButton';
 import {minus, plus} from 'assets/images';
 
 type Props = {
+  /**
+   * Callback when the Add to cart button is pressed. Passes the internal quantity state as an argument.
+   */
   onPressAdd: (quantity: number) => void;
 };
 
+/**
+ * Component that has add and minus buttons to select the quantity to add to cart.
+ */
 const AddToCart = ({onPressAdd}: Props) => {
+  // count is minimum 1
   const [count, setCount] = React.useState(1);
 
   const modCount = (mod: number) => () =>

@@ -17,7 +17,7 @@ type Props = {
 
 const ShoppingCartButton = ({numCartItems, onPress}: Props) => {
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity onPress={onPress}>
       <Image source={shoppingCart} style={styles.image} />
       {numCartItems > 0 && (
         <View style={styles.badge}>
@@ -29,11 +29,6 @@ const ShoppingCartButton = ({numCartItems, onPress}: Props) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    alignSelf: 'flex-end',
-    marginTop: 20,
-    marginRight: 20,
-  },
   image: {
     width: 40,
     height: 40,

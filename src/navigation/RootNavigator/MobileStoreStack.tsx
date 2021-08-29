@@ -7,7 +7,6 @@ import {createSharedElementStackNavigator} from 'react-navigation-shared-element
 import ItemDetail, {
   ItemDetailParams,
 } from 'features/MobileStore/pages/ItemDetail';
-import {CardStyleInterpolators} from '@react-navigation/stack';
 
 export type MobileStorePages = {
   Payment: undefined;
