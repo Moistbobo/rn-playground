@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {FlatList, StyleSheet, View} from 'react-native';
+import {Alert, FlatList, StyleSheet, View} from 'react-native';
 import {ItemType} from 'types/MobileStoreTypes';
 import CartItem from 'features/MobileStore/pages/Cart/components/CartItem';
 import {
@@ -17,6 +17,10 @@ import {AppDispatch} from 'store/RootStore';
 import {MobileStoreActions} from 'features/MobileStore/slice';
 import TransparentButton from 'components/TransparentButton';
 import {useNavigation} from '@react-navigation/native';
+import {
+  initPaymentSheet,
+  presentPaymentSheet,
+} from '@stripe/stripe-react-native';
 
 const Cart = () => {
   const {navigate} = useNavigation();
@@ -27,6 +31,16 @@ const Cart = () => {
 
   const [totalPrice, setTotalPrice] = React.useState(0);
 
+  const [paymentLoading, setPaymentLoading] = React.useState(false);
+
+  const cartItemsWithQuantity = React.useMemo(() => {
+    if (!cart) return [];
+    return Object.keys(cart).map(id => ({
+      _id: id,
+      quantity: cart[id],
+    }));
+  }, [cart]);
+
   // go back to item listing page if there are no items in cart
   React.useEffect(() => {
     if (cartCount === 0) {
@@ -36,12 +50,8 @@ const Cart = () => {
 
   React.useEffect(() => {
     if (!cart) return;
-    const formattedCart = Object.keys(cart).map(id => ({
-      _id: id,
-      quantity: cart[id],
-    }));
 
-    MobileStoreService.calculatePrice(formattedCart)
+    MobileStoreService.calculatePrice(cartItemsWithQuantity)
       .then(response => {
         setTotalPrice(response.data.price);
       })
@@ -53,7 +63,33 @@ const Cart = () => {
       });
   }, [cart]);
 
-  const onPressCheckout = () => {};
+  const onPressCheckout = async () => {
+    const response = await MobileStoreService.checkout(cartItemsWithQuantity);
+    const {
+      data: {paymentIntent, ephemeralKey, customer, amount},
+    } = response;
+
+    const {error} = await initPaymentSheet({
+      customerId: customer,
+      customerEphemeralKeySecret: ephemeralKey,
+      paymentIntentClientSecret: paymentIntent,
+    });
+    if (!error) {
+      setPaymentLoading(true);
+    }
+
+    const {error: paymentError} = await presentPaymentSheet({
+      clientSecret: paymentIntent,
+    });
+
+    if (paymentError) {
+      console.log(paymentError);
+      Alert.alert('error');
+    } else {
+      console.log('payment success');
+    }
+    setPaymentLoading(false);
+  };
 
   const cartItems = React.useMemo(() => {
     if (!items) return;
@@ -100,6 +136,7 @@ const Cart = () => {
               label="Checkout"
               onPress={onPressCheckout}
               color={Design.colors.reddishBrown}
+              loading={paymentLoading}
             />
           </View>
         </>

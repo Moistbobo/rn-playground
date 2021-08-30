@@ -7,7 +7,13 @@ export const getItems = createAsyncThunk(
   async () => {
     const response = await MobileStoreService.getItems();
 
-    return {items: response.data.items};
+    // prices are in cents, convert to dollars
+    const items = response.data.items.map((x: ItemType) => ({
+      ...x,
+      price: x.price / 100,
+    }));
+
+    return {items};
   },
 );
 

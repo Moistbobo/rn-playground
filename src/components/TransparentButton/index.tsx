@@ -1,5 +1,11 @@
 import React from 'react';
-import {Text, ColorValue, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  ColorValue,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 
 type Props = {
   /**
@@ -17,17 +23,27 @@ type Props = {
    * @default black
    */
   color?: ColorValue;
+
+  /**
+   * Shows activity indicator instead of label and disables touch if true
+   */
+  loading?: boolean;
 };
 
-const TransparentButton = ({label, onPress, color}: Props) => {
+const TransparentButton = ({label, onPress, color, loading}: Props) => {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <Text
+    <TouchableOpacity
+      disabled={loading}
+      onPress={onPress}
+      // @ts-ignore
+      style={[styles.buttonStyle, color && {borderColor: color}]}
+    >
+      {loading ? (
+        <ActivityIndicator color={color || 'black'} size={18} />
+      ) : (
         // @ts-ignore
-        style={[styles.buttonText, color && {borderColor: color, color}]}
-      >
-        {label}
-      </Text>
+        <Text style={[styles.buttonText, {color}]}>{label}</Text>
+      )}
     </TouchableOpacity>
   );
 };
@@ -37,12 +53,16 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 16,
     fontWeight: 'bold',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    textAlign: 'center',
+  },
+  buttonStyle: {
     borderWidth: 1,
     borderColor: 'black',
-    textAlign: 'center',
     borderRadius: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    minHeight: 40,
+    justifyContent: 'center',
   },
 });
 

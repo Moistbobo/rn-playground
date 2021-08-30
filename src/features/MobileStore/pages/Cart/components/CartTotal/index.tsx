@@ -7,13 +7,17 @@ type Props = {
   total: number;
 };
 
+/**
+ * Component that shows the total price.
+ * Automatically converts the price in cents to dollars.
+ */
 const CartTotal = ({total}: Props) => {
   return (
     <View style={styles.cartTotal}>
       {total === 0 ? (
         <ActivityIndicator color={Design.colors.reddishBrown} />
       ) : (
-        <Text>Total: ${total}</Text>
+        <Text>Total: ${total / 100}</Text>
       )}
     </View>
   );
