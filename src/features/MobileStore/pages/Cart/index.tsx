@@ -4,20 +4,35 @@ import {useDispatch, useSelector} from 'react-redux';
 import {FlatList, StyleSheet, View} from 'react-native';
 import {ItemType} from 'types/MobileStoreTypes';
 import CartItem from 'features/MobileStore/pages/Cart/components/CartItem';
-import {selectCart, selectItems} from 'features/MobileStore/slice/selectors';
+import {
+  selectCart,
+  selectCartCount,
+  selectItems,
+} from 'features/MobileStore/slice/selectors';
 import Design from 'features/MobileStore/config/Design';
 import CartTotal from 'features/MobileStore/pages/Cart/components/CartTotal';
 import MobileStoreService from 'services/MobileStoreService';
 import {showMessage} from 'react-native-flash-message';
 import {AppDispatch} from 'store/RootStore';
 import {MobileStoreActions} from 'features/MobileStore/slice';
+import TransparentButton from 'components/TransparentButton';
+import {useNavigation} from '@react-navigation/native';
 
 const Cart = () => {
+  const {navigate} = useNavigation();
   const dispatch = useDispatch<AppDispatch>();
   const cart = useSelector(selectCart);
+  const cartCount = useSelector(selectCartCount);
   const items = useSelector(selectItems);
 
   const [totalPrice, setTotalPrice] = React.useState(0);
+
+  // go back to item listing page if there are no items in cart
+  React.useEffect(() => {
+    if (cartCount === 0) {
+      navigate('ItemListing');
+    }
+  }, [cartCount]);
 
   React.useEffect(() => {
     if (!cart) return;
@@ -37,6 +52,8 @@ const Cart = () => {
         });
       });
   }, [cart]);
+
+  const onPressCheckout = () => {};
 
   const cartItems = React.useMemo(() => {
     if (!items) return;
@@ -75,7 +92,18 @@ const Cart = () => {
       renderItem={renderItem}
       ItemSeparatorComponent={() => <View style={{height: 16}} />}
       ListFooterComponentStyle={styles.footerStyle}
-      ListFooterComponent={() => <CartTotal total={totalPrice} />}
+      ListFooterComponent={() => (
+        <>
+          <CartTotal total={totalPrice} />
+          <View style={styles.checkoutButtonContainer}>
+            <TransparentButton
+              label="Checkout"
+              onPress={onPressCheckout}
+              color={Design.colors.reddishBrown}
+            />
+          </View>
+        </>
+      )}
     />
   );
 };
@@ -91,6 +119,13 @@ const styles = StyleSheet.create({
   },
   footerStyle: {
     marginTop: 16,
+    flex: 1,
+  },
+  checkoutButtonContainer: {
+    width: '75%',
+    alignSelf: 'center',
+    flex: 1,
+    justifyContent: 'flex-end',
   },
 });
 

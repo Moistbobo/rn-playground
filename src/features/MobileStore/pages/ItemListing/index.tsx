@@ -12,6 +12,7 @@ import {getItems} from 'features/MobileStore/slice';
 import {useNavigation} from '@react-navigation/native';
 import Design from 'features/MobileStore/config/Design';
 import ShoppingCartButton from 'features/MobileStore/components/ShoppingCartButton';
+import {showMessage} from 'react-native-flash-message';
 
 const ItemListing = () => {
   const {navigate} = useNavigation();
@@ -36,7 +37,14 @@ const ItemListing = () => {
   };
 
   const onPressShoppingCart = () => {
-    navigate('Cart');
+    if (cartCount === 0) {
+      showMessage({
+        message: 'You have no items in cart.',
+        type: 'warning',
+      });
+    } else {
+      navigate('Cart');
+    }
   };
 
   return (
