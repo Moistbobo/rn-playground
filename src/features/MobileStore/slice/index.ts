@@ -84,6 +84,12 @@ const slice = createSlice({
         },
       };
     },
+    emptyCart: state => {
+      return {
+        ...state,
+        cart: {},
+      };
+    },
   },
   extraReducers: builder => {
     builder.addMatcher(isAllOf(getItems.fulfilled), (state, action) => {

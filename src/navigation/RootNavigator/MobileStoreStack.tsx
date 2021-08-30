@@ -7,6 +7,7 @@ import {createSharedElementStackNavigator} from 'react-navigation-shared-element
 import ItemDetail, {
   ItemDetailParams,
 } from 'features/MobileStore/pages/ItemDetail';
+import PaymentSummary from 'features/MobileStore/pages/PaymentSummary';
 import Cart from '../../features/MobileStore/pages/Cart';
 import BackButton from '../../components/BackButton';
 import Design from '../../features/MobileStore/config/Design';
@@ -16,6 +17,7 @@ export type MobileStorePages = {
   ItemListing: undefined;
   ItemDetail: ItemDetailParams;
   Cart: undefined;
+  PaymentSummary: undefined;
 };
 
 const Stack = createSharedElementStackNavigator<MobileStorePages>();
@@ -51,6 +53,7 @@ const MobileStoreStack = () => {
           name="Cart"
           component={Cart}
         />
+        <Stack.Screen name="PaymentSummary" component={PaymentSummary} />
       </Stack.Navigator>
     </StripeProvider>
   );

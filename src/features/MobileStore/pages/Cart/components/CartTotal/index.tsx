@@ -17,7 +17,9 @@ const CartTotal = ({total}: Props) => {
       {total === 0 ? (
         <ActivityIndicator color={Design.colors.reddishBrown} />
       ) : (
-        <Text>Total: ${total / 100}</Text>
+        <Text style={styles.priceText}>
+          Total: <Text style={styles.bold}>${total / 100}</Text>
+        </Text>
       )}
     </View>
   );
@@ -30,6 +32,14 @@ const styles = StyleSheet.create({
     borderTopWidth: 2,
     justifyContent: 'flex-end',
     flexDirection: 'row',
+  },
+  priceText: {
+    color: Design.colors.reddishBrown,
+    fontSize: 16,
+    textAlign: 'right',
+  },
+  bold: {
+    fontWeight: 'bold',
   },
 });
 

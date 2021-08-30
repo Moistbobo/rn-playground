@@ -7,6 +7,7 @@ import CartItem from 'features/MobileStore/pages/Cart/components/CartItem';
 import {
   selectCart,
   selectCartCount,
+  selectCartWithMetadata,
   selectItems,
 } from 'features/MobileStore/slice/selectors';
 import Design from 'features/MobileStore/config/Design';
@@ -23,7 +24,7 @@ import {
 } from '@stripe/stripe-react-native';
 
 const Cart = () => {
-  const {navigate} = useNavigation();
+  const {navigate, replace} = useNavigation();
   const dispatch = useDispatch<AppDispatch>();
   const cart = useSelector(selectCart);
   const cartCount = useSelector(selectCartCount);
@@ -43,9 +44,15 @@ const Cart = () => {
 
   // go back to item listing page if there are no items in cart
   React.useEffect(() => {
-    if (cartCount === 0) {
+    let mounted = true;
+
+    if (cartCount === 0 && mounted) {
       navigate('ItemListing');
     }
+
+    return () => {
+      mounted = false;
+    };
   }, [cartCount]);
 
   React.useEffect(() => {
@@ -64,9 +71,11 @@ const Cart = () => {
   }, [cart]);
 
   const onPressCheckout = async () => {
+    setPaymentLoading(true);
+
     const response = await MobileStoreService.checkout(cartItemsWithQuantity);
     const {
-      data: {paymentIntent, ephemeralKey, customer, amount},
+      data: {paymentIntent, ephemeralKey, customer},
     } = response;
 
     const {error} = await initPaymentSheet({
@@ -74,8 +83,13 @@ const Cart = () => {
       customerEphemeralKeySecret: ephemeralKey,
       paymentIntentClientSecret: paymentIntent,
     });
-    if (!error) {
-      setPaymentLoading(true);
+    if (error) {
+      showMessage({
+        message: 'There was an issue contacting our servers. Please try again.',
+        type: 'danger',
+      });
+      setPaymentLoading(false);
+      return;
     }
 
     const {error: paymentError} = await presentPaymentSheet({
@@ -83,10 +97,13 @@ const Cart = () => {
     });
 
     if (paymentError) {
-      console.log(paymentError);
-      Alert.alert('error');
+      showMessage({
+        message: 'There was an issue with payment. Please try again.',
+        type: 'danger',
+      });
     } else {
-      console.log('payment success');
+      // communicate with BE when successful too
+      replace('PaymentSummary');
     }
     setPaymentLoading(false);
   };
@@ -161,8 +178,7 @@ const styles = StyleSheet.create({
   checkoutButtonContainer: {
     width: '75%',
     alignSelf: 'center',
-    flex: 1,
-    justifyContent: 'flex-end',
+    marginTop: 32,
   },
 });
 
