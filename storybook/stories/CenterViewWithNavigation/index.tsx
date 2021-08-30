@@ -14,7 +14,7 @@ type Props = {
 
 const CenterViewWithNavigation = ({children, backgroundColor}: Props) => {
   // @ts-ignore
-  const comp = () => <CenterView style={{backgroundColor}}>{children}</CenterView>
+  const comp = () => <CenterView backgroundColor={backgroundColor}>{children}</CenterView>
 
   return (
     <NavigationContainer>
