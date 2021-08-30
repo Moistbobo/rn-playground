@@ -2,6 +2,7 @@ import React from 'react';
 import {storiesOf} from '@storybook/react-native';
 import CenterView from 'storybook/stories/CenterView';
 import {number, text} from '@storybook/addon-knobs';
+import {action} from '@storybook/addon-actions';
 import CartItem from './index';
 
 storiesOf('MobileStore/components', module)
@@ -12,5 +13,7 @@ storiesOf('MobileStore/components', module)
       name={text('name', 'ItemName')}
       quantity={number('quantity', 10)}
       price={number('price', 100)}
+      onDeleteCartItem={action('onDeleteCartItem')}
+      onConfirmEditCart={action('onConfirmEditCart')}
     />
   ));
