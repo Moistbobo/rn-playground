@@ -116,7 +116,7 @@ const CartItem = ({
 
         <Text>{name}</Text>
 
-        <Text>${price * quantity}</Text>
+        <Text>${(price / 100) * quantity}</Text>
       </View>
 
       {editingOverlay}
