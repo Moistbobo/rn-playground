@@ -31,6 +31,9 @@
       ],
       "config/*": [
         "./config/*"
+      ],
+      "storybook/*": [
+        "../storybook/*"
       ]
     }
   }

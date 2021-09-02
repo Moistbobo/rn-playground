@@ -3,25 +3,60 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
+    "android": "ENVFILE=.env.development react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "storybook": "start-storybook -p 7007",
+    "build-storybook": "build-storybook",
+    "prestorybook": "rnstl",
+    "use-main": "cp index.main.js index.js",
+    "use-storybook": "cp index.storybook.js index.js"
   },
   "dependencies": {
+    "@react-native-masked-view/masked-view": "^0.2.6",
+    "@react-navigation/devtools": "^6.0.1",
+    "@react-navigation/native": "^6.0.2",
+    "@react-navigation/native-stack": "^6.1.0",
+    "@react-navigation/stack": "^6.0.7",
+    "@reduxjs/toolkit": "^1.6.1",
+    "@stripe/stripe-react-native": "^0.2.0",
+    "axios": "^0.21.1",
     "react": "17.0.2",
     "react-native": "0.65.1",
-    "react-native-config": "^1.4.4"
+    "react-native-animatable": "^1.3.3",
+    "react-native-config": "^1.4.4",
+    "react-native-default-preference": "^1.4.3",
+    "react-native-flash-message": "^0.1.23",
+    "react-native-gesture-handler": "^1.10.3",
+    "react-native-reanimated": "2.3.0-alpha.2",
+    "react-native-safe-area-context": "^3.3.0",
+    "react-native-screens": "^3.6.0",
+    "react-native-shared-element": "^0.8.2",
+    "react-navigation-shared-element": "^3.1.2",
+    "react-redux": "^7.2.4",
+    "redux-flipper": "^2.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",
+    "@storybook/addon-actions": "^5.3",
+    "@storybook/addon-knobs": "^5.3",
+    "@storybook/addon-links": "^5.3",
+    "@storybook/addon-ondevice-actions": "^5.3.23",
+    "@storybook/addon-ondevice-knobs": "^5.3.25",
+    "@storybook/react-native": "^5.3.25",
+    "@storybook/react-native-server": "^5.3.23",
+    "@testing-library/jest-native": "^4.0.2",
+    "@testing-library/react-native": "^7.2.0",
+    "@types/axios": "^0.14.0",
     "@types/jest": "^26.0.23",
     "@types/react-native": "^0.64.5",
     "@types/react-test-renderer": "^16.9.2",
     "babel-jest": "^26.6.3",
+    "babel-loader": "^8.2.2",
     "babel-plugin-module-resolver": "^4.1.0",
     "eslint": "^7.14.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -34,8 +69,12 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-react-native": "^3.11.0",
     "jest": "^26.6.3",
+    "jest-transform-stub": "^2.0.0",
     "metro-react-native-babel-preset": "^0.66.0",
+    "react-dom": "17.0.2",
     "react-native-codegen": "^0.0.7",
+    "react-native-flipper": "^0.104.0",
+    "react-native-storybook-loader": "^2.0.4",
     "react-test-renderer": "17.0.2",
     "typescript": "^3.8.3"
   },
@@ -44,13 +83,38 @@
   },
   "jest": {
     "preset": "react-native",
+    "testEnvironment": "jsdom",
     "moduleFileExtensions": [
       "ts",
       "tsx",
       "js",
       "jsx",
       "json",
-      "node"
-    ]
+      "node",
+      ".spec.tsx"
+    ],
+    "setupFiles": [
+      "<rootDir>/jest/setup.js"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/jest/setupAfterEnv.js"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|@react-native|@react-native-community/progress-bar-android|@react-native-community/progress-view|react-navigation-shared-element)"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "jest-transform-stub",
+      "\\.(css|less)$": "jest-transform-stub"
+    }
+  },
+  "config": {
+    "react-native-storybook-loader": {
+      "searchDir": [
+        "./src",
+        "./packages"
+      ],
+      "pattern": "**/*.stories.tsx",
+      "outputFile": "./storybook/storyLoader.js"
+    }
   }
 }
