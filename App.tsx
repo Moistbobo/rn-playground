@@ -1,6 +1,5 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import Index from 'navigation/RootNavigator';
 import {
   NavigationContainer,
   useNavigationContainerRef,
@@ -9,6 +8,7 @@ import store from 'store/RootStore';
 import {Provider} from 'react-redux';
 import {useFlipper} from '@react-navigation/devtools';
 import FlashMessage from 'react-native-flash-message';
+import RootNavigator from 'navigation/RootNavigator';
 
 const App = () => {
   const navigationRef = useNavigationContainerRef();
@@ -18,7 +18,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Index />
+        <RootNavigator />
       </NavigationContainer>
       <FlashMessage position="top" />
     </Provider>

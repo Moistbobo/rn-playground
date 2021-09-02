@@ -1,13 +1,12 @@
 import React from 'react';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {Alert, FlatList, StyleSheet, View} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 import {ItemType} from 'types/MobileStoreTypes';
 import CartItem from 'features/MobileStore/pages/Cart/components/CartItem';
 import {
   selectCart,
   selectCartCount,
-  selectCartWithMetadata,
   selectItems,
 } from 'features/MobileStore/slice/selectors';
 import Design from 'features/MobileStore/config/Design';
@@ -17,7 +16,7 @@ import {showMessage} from 'react-native-flash-message';
 import {AppDispatch} from 'store/RootStore';
 import {MobileStoreActions} from 'features/MobileStore/slice';
 import TransparentButton from 'components/TransparentButton';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useIsFocused} from '@react-navigation/native';
 import {
   initPaymentSheet,
   presentPaymentSheet,
@@ -29,6 +28,7 @@ const Cart = () => {
   const cart = useSelector(selectCart);
   const cartCount = useSelector(selectCartCount);
   const items = useSelector(selectItems);
+  const focused = useIsFocused();
 
   const [totalPrice, setTotalPrice] = React.useState(0);
 
@@ -44,15 +44,9 @@ const Cart = () => {
 
   // go back to item listing page if there are no items in cart
   React.useEffect(() => {
-    let mounted = true;
-
-    if (cartCount === 0 && mounted) {
+    if (cartCount === 0 && focused) {
       navigate('ItemListing');
     }
-
-    return () => {
-      mounted = false;
-    };
   }, [cartCount]);
 
   React.useEffect(() => {

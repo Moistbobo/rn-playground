@@ -5,15 +5,14 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 export type RootNavigatorPages = {
   Landing: undefined;
-  MobileStoreStack: undefined;
+  MobileStore: undefined;
 };
 
 const Stack = createStackNavigator<RootNavigatorPages>();
 
-const Index = () => {
+const RootNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="MobileStore"
       screenOptions={{
         headerShown: false,
       }}
@@ -24,4 +23,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default RootNavigator;
