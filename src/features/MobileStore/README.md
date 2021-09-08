@@ -3,8 +3,9 @@
 A simple mobile store demo with cart and stripe checkout.
 
 ## Libraries tested
-[react-native-shared-element](https://github.com/IjzerenHein/react-native-shared-element)
-[stripe-react-native](https://github.com/stripe/stripe-react-native)
+* [react-native-shared-element](https://github.com/IjzerenHein/react-native-shared-element)
+* [stripe-react-native](https://github.com/stripe/stripe-react-native)
+
 
 Use a test card found [here](https://stripe.com/docs/testing).
 
