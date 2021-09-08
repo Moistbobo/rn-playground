@@ -1,4 +1,4 @@
-#MobileStore demo
+# MobileStore demo
 
 A simple mobile store demo with cart and stripe checkout.
 
