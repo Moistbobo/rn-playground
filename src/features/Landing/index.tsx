@@ -3,6 +3,7 @@ import React from 'react';
 import {FlatList, StyleSheet} from 'react-native';
 import TransparentButton from 'components/TransparentButton';
 import {useNavigation} from '@react-navigation/native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const routes = ['MobileStore'];
 
@@ -18,12 +19,13 @@ const Landing = () => {
   );
 
   return (
-    <FlatList
-      style={styles.container}
-      contentContainerStyle={styles.contentContainer}
-      data={routes}
-      renderItem={renderItem}
-    />
+    <SafeAreaView style={styles.container} edges={['top']}>
+      <FlatList
+        contentContainerStyle={styles.contentContainer}
+        data={routes}
+        renderItem={renderItem}
+      />
+    </SafeAreaView>
   );
 };
 
