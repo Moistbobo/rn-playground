@@ -17,6 +17,7 @@
   "dependencies": {
     "@react-native-masked-view/masked-view": "^0.2.6",
     "@react-navigation/devtools": "^6.0.1",
+    "@react-navigation/material-top-tabs": "^6.0.2",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.1.0",
     "@react-navigation/stack": "^6.0.7",
@@ -30,11 +31,13 @@
     "react-native-default-preference": "^1.4.3",
     "react-native-flash-message": "^0.1.23",
     "react-native-gesture-handler": "^1.10.3",
+    "react-native-pager-view": "^5.4.1",
     "react-native-reanimated": "2.3.0-alpha.3",
     "react-native-safe-area-context": "^3.3.0",
     "react-native-screens": "^3.6.0",
     "react-native-shared-element": "^0.8.2",
     "react-native-svg": "^12.1.1",
+    "react-native-tab-view": "^3.1.1",
     "react-navigation-shared-element": "^3.1.2",
     "react-redux": "^7.2.4",
     "redux-flipper": "^2.0.0"
