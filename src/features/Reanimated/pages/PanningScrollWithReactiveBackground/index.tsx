@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {Text} from 'react-native';
-import ReactivePanningScrollview from './components/ReactivePanningScrollview';
+import ReactivePanningScrollview from 'components/Reanimated/ReactivePanningScrollview';
 
 const PanningScrollWithReactiveBackground = () => {
   return (
