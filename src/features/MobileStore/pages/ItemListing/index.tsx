@@ -36,26 +36,8 @@ const ItemListing = () => {
     return <ProductItem {...item} onPress={onPress} />;
   };
 
-  const onPressShoppingCart = () => {
-    if (cartCount === 0) {
-      showMessage({
-        message: 'You have no items in cart.',
-        type: 'warning',
-      });
-    } else {
-      navigate('Cart');
-    }
-  };
-
   return (
     <View style={styles.container}>
-      <View style={styles.shoppingCartBtn}>
-        <ShoppingCartButton
-          numCartItems={cartCount}
-          onPress={onPressShoppingCart}
-        />
-      </View>
-
       <FlatList
         data={items}
         horizontal

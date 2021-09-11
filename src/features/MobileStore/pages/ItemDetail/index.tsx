@@ -55,7 +55,6 @@ const ItemDetail = () => {
 
   return (
     <View style={styles.container}>
-      <BackButton tintColor={Design.colors.paleBrown} />
       <SharedElement id={item._id}>
         <Image source={{uri: item.img}} style={styles.image} />
       </SharedElement>

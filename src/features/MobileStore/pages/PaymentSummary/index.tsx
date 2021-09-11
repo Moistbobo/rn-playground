@@ -8,6 +8,7 @@ import Design from 'features/MobileStore/config/Design';
 import TransparentButton from 'components/TransparentButton';
 import {useNavigation} from '@react-navigation/native';
 import {AppDispatch} from 'store/RootStore';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const PaymentSummary = () => {
   const cartItemsWithMeta = useSelector(selectCartWithMetadata);
@@ -43,30 +44,31 @@ const PaymentSummary = () => {
   }, [tempItems]);
 
   return (
-    <FlatList
-      style={styles.container}
-      ListHeaderComponent={<Text style={styles.header}>Order Summary</Text>}
-      contentContainerStyle={styles.contentContainerStyle}
-      data={tempItems}
-      renderItem={renderItem}
-      ItemSeparatorComponent={() => <View style={styles.spacer} />}
-      ListFooterComponentStyle={styles.footerStyle}
-      ListFooterComponent={
-        <View>
-          <Text style={styles.priceText}>
-            Total: <Text style={styles.bold}>${totalPrice}</Text>
-          </Text>
+    <SafeAreaView edges={['top']}>
+      <FlatList
+        ListHeaderComponent={<Text style={styles.header}>Order Summary</Text>}
+        contentContainerStyle={styles.contentContainerStyle}
+        data={tempItems}
+        renderItem={renderItem}
+        ItemSeparatorComponent={() => <View style={styles.spacer} />}
+        ListFooterComponentStyle={styles.footerStyle}
+        ListFooterComponent={
+          <View>
+            <Text style={styles.priceText}>
+              Total: <Text style={styles.bold}>${totalPrice}</Text>
+            </Text>
 
-          <Text style={styles.thankYouText}>Thank you for your order.</Text>
+            <Text style={styles.thankYouText}>Thank you for your order.</Text>
 
-          <TransparentButton
-            label="Back to Item Listing"
-            onPress={onPressConfirm}
-            color={Design.colors.reddishBrown}
-          />
-        </View>
-      }
-    />
+            <TransparentButton
+              label="Back to Item Listing"
+              onPress={onPressConfirm}
+              color={Design.colors.reddishBrown}
+            />
+          </View>
+        }
+      />
+    </SafeAreaView>
   );
 };
 

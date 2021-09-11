@@ -2,6 +2,7 @@ import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Design from 'features/MobileStore/config/Design';
 import {shoppingCart} from 'assets/images';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 type Props = {
   /**

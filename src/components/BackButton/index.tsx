@@ -25,26 +25,17 @@ type Props = {
 /**
  * A left arrow button that calls goBack using react navigation hook.
  */
-const BackButton = ({containerStyle, tintColor}: Props) => {
+const BackButton = ({containerStyle, tintColor = 'black'}: Props) => {
   const {goBack} = useNavigation();
 
   return (
-    <TouchableOpacity
-      onPress={goBack}
-      style={[containerStyle || styles.defaultContainerStyle]}
-    >
+    <TouchableOpacity onPress={goBack} style={{...containerStyle}}>
       <Image style={[styles.image, {tintColor}]} source={arrowLeft} />
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  defaultContainerStyle: {
-    position: 'absolute',
-    top: 16,
-    left: 16,
-    zIndex: 99,
-  },
   image: {
     width: 40,
     height: 40,
