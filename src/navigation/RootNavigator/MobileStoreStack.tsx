@@ -12,6 +12,7 @@ import ShoppingCartButton from 'features/MobileStore/components/ShoppingCartButt
 import {useSelector} from 'react-redux';
 import {selectCartCount} from 'features/MobileStore/slice/selectors';
 import {showMessage} from 'react-native-flash-message';
+import {CardStyleInterpolators} from '@react-navigation/stack';
 import Cart from '../../features/MobileStore/pages/Cart';
 import BackButton from '../../components/BackButton';
 import Design from '../../features/MobileStore/config/Design';
@@ -84,6 +85,8 @@ const MobileStoreStack = () => {
                 tintColor={Design.colors.reddishBrown}
               />
             ),
+            cardStyleInterpolator:
+              CardStyleInterpolators.forScaleFromCenterAndroid,
           }}
           sharedElements={route => {
             return [route.params.itemId, `${route.params.itemId}-name`];
