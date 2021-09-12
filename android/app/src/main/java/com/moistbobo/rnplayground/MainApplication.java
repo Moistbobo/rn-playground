@@ -1,4 +1,4 @@
-package com.rnplayground;
+package com.moistbobo.rnplayground;
   import com.facebook.react.bridge.JSIModulePackage; // <- add
   import com.swmansion.reanimated.ReanimatedJSIModulePackage; // <- add
 import android.app.Application;
