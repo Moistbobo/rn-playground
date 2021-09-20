@@ -4,13 +4,13 @@ import MobileStoreStack from 'navigation/RootNavigator/MobileStoreStack';
 import {createStackNavigator} from '@react-navigation/stack';
 import ReanimatedTabs from 'navigation/RootNavigator/ReanimatedTabs';
 
-export type RootNavigatorPages = {
+export type RootNavigatorParamList = {
   Landing: undefined;
   MobileStore: undefined;
   Reanimated: undefined;
 };
 
-const Stack = createStackNavigator<RootNavigatorPages>();
+const Stack = createStackNavigator<RootNavigatorParamList>();
 
 const RootNavigator = () => {
   return (

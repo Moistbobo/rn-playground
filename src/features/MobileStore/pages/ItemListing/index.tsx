@@ -4,19 +4,15 @@ import {ItemType} from 'types/MobileStoreTypes';
 import ProductItem from 'features/MobileStore/pages/ItemListing/components/ProductItem';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch} from 'store/RootStore';
-import {
-  selectCartCount,
-  selectItems,
-} from 'features/MobileStore/slice/selectors';
+import {selectItems} from 'features/MobileStore/slice/selectors';
 import {getItems} from 'features/MobileStore/slice';
-import {useNavigation} from '@react-navigation/native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import Design from 'features/MobileStore/config/Design';
-import ShoppingCartButton from 'features/MobileStore/components/ShoppingCartButton';
-import {showMessage} from 'react-native-flash-message';
+import {MobileStoreParamList} from 'navigation/RootNavigator/MobileStoreStack';
 
 const ItemListing = () => {
-  const {navigate} = useNavigation();
-  const cartCount = useSelector(selectCartCount);
+  const {navigate} =
+    useNavigation<NavigationProp<MobileStoreParamList, 'ItemListing'>>();
   const dispatch = useDispatch<AppDispatch>();
   const items = useSelector(selectItems);
 

@@ -21,9 +21,12 @@ import {
   initPaymentSheet,
   presentPaymentSheet,
 } from '@stripe/stripe-react-native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {MobileStoreParamList} from 'navigation/RootNavigator/MobileStoreStack';
 
 const Cart = () => {
-  const {navigate, replace} = useNavigation();
+  const {navigate, replace} =
+    useNavigation<StackNavigationProp<MobileStoreParamList, 'Cart'>>();
   const dispatch = useDispatch<AppDispatch>();
   const cart = useSelector(selectCart);
   const cartCount = useSelector(selectCartCount);
