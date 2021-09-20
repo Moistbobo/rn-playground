@@ -1,11 +1,11 @@
 import React from 'react';
 
-import {FlatList, StyleSheet} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 import TransparentButton from 'components/TransparentButton';
 import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-const routes = ['MobileStore'];
+const routes = ['MobileStore', 'Reanimated'];
 
 const Landing = () => {
   const {navigate} = useNavigation();
@@ -22,6 +22,7 @@ const Landing = () => {
     <SafeAreaView style={styles.container} edges={['top']}>
       <FlatList
         contentContainerStyle={styles.contentContainer}
+        ItemSeparatorComponent={() => <View style={{height: 16}} />}
         data={routes}
         renderItem={renderItem}
       />

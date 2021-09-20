@@ -275,6 +275,8 @@ PODS:
     - React-Core
   - react-native-flipper (0.104.0):
     - React-Core
+  - react-native-pager-view (5.4.1):
+    - React-Core
   - react-native-safe-area-context (3.3.0):
     - React-Core
   - React-perflogger (0.65.1)
@@ -347,7 +349,7 @@ PODS:
     - React
   - RNGestureHandler (1.10.3):
     - React-Core
-  - RNReanimated (2.3.0-alpha.2):
+  - RNReanimated (2.3.0-alpha.3):
     - DoubleConversion
     - FBLazyVector
     - FBReactNativeSpec
@@ -437,6 +439,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-config (from `../node_modules/react-native-config`)
   - react-native-flipper (from `../node_modules/react-native-flipper`)
+  - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -515,6 +518,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-config"
   react-native-flipper:
     :path: "../node_modules/react-native-flipper"
+  react-native-pager-view:
+    :path: "../node_modules/react-native-pager-view"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   React-perflogger:
@@ -592,6 +597,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 41e58e5b8e3e0bf061fdf725b03f2144014a8fb0
   react-native-config: 72d948053a442779b3178fddd571e37f118ef606
   react-native-flipper: 58bc8d50ff7b97cc461cdaf3639fa7f076dbfa76
+  react-native-pager-view: 43f51f45f37ec9715f6c188e4af46ccdf79872e8
   react-native-safe-area-context: 61c8c484a3a9e7d1fda19f7b1794b35bbfd2262a
   React-perflogger: fd28ee1f2b5b150b00043f0301d96bd417fdc339
   React-RCTActionSheet: 7f3fa0855c346aa5d7c60f9ced16e067db6d29fa
@@ -608,7 +614,7 @@ SPEC CHECKSUMS:
   RNCMaskedView: c298b644a10c0c142055b3ae24d83879ecb13ccd
   RNDefaultPreference: 2f8d6d54230edbd78708ada8d63bb275e5a8415b
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
-  RNReanimated: f89561404f0efaa5352b627dc35e5a97a845a2cd
+  RNReanimated: 48e578538b2fad573d3d5ce2e80ad375e1534d87
   RNScreens: eb0dfb2d6b21d2d7f980ad46b14eb306d2f1062e
   RNSharedElement: 87baf6d04da5b068f000dd8c953d28a1196999c0
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
