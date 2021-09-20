@@ -1,6 +1,5 @@
 import React from 'react';
 import {StripeProvider} from '@stripe/stripe-react-native';
-import Payment from 'features/MobileStore/pages/Payment';
 import AppConfig, {AppConfigEnum} from 'config/AppConfig';
 import ItemListing from 'features/MobileStore/pages/ItemListing';
 import {createSharedElementStackNavigator} from 'react-navigation-shared-element';
@@ -17,7 +16,7 @@ import Cart from '../../features/MobileStore/pages/Cart';
 import BackButton from '../../components/BackButton';
 import Design from '../../features/MobileStore/config/Design';
 
-export type MobileStorePages = {
+export type MobileStoreParamList = {
   Payment: undefined;
   ItemListing: undefined;
   ItemDetail: ItemDetailParams;
@@ -25,7 +24,7 @@ export type MobileStorePages = {
   PaymentSummary: undefined;
 };
 
-const Stack = createSharedElementStackNavigator<MobileStorePages>();
+const Stack = createSharedElementStackNavigator<MobileStoreParamList>();
 
 const MobileStoreStack = () => {
   const cartCount = useSelector(selectCartCount);
@@ -38,13 +37,6 @@ const MobileStoreStack = () => {
         }}
         initialRouteName="ItemListing"
       >
-        <Stack.Screen
-          options={{
-            headerShown: false,
-          }}
-          name="Payment"
-          component={Payment}
-        />
         <Stack.Screen
           options={({navigation}) => ({
             headerShown: true,
