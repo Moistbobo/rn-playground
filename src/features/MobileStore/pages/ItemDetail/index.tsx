@@ -10,10 +10,9 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import {selectItemById} from 'features/MobileStore/slice/selectors';
 import {RouteProp, useRoute} from '@react-navigation/native';
-import {MobileStorePages} from 'navigation/RootNavigator/MobileStoreStack';
+import {MobileStoreParamList} from 'navigation/RootNavigator/MobileStoreStack';
 import {SharedElement} from 'react-navigation-shared-element';
 import Design from 'features/MobileStore/config/Design';
-import BackButton from 'components/BackButton';
 import AddToCart from 'features/MobileStore/pages/ItemDetail/AddToCart';
 import {AppDispatch} from 'store/RootStore';
 import {MobileStoreActions} from 'features/MobileStore/slice';
@@ -25,7 +24,7 @@ export type ItemDetailParams = {
 };
 
 const ItemDetail = () => {
-  const route = useRoute<RouteProp<MobileStorePages, 'ItemDetail'>>();
+  const route = useRoute<RouteProp<MobileStoreParamList, 'ItemDetail'>>();
   const dispatch = useDispatch<AppDispatch>();
   const item = useSelector(selectItemById(route.params.itemId));
 

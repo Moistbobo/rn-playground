@@ -6,14 +6,16 @@ import {MobileStoreActions} from 'features/MobileStore/slice';
 import PaymentSummaryItem from 'features/MobileStore/pages/PaymentSummary/components/PaymentSummaryItem';
 import Design from 'features/MobileStore/config/Design';
 import TransparentButton from 'components/TransparentButton';
-import {useNavigation} from '@react-navigation/native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AppDispatch} from 'store/RootStore';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {MobileStoreParamList} from 'navigation/RootNavigator/MobileStoreStack';
 
 const PaymentSummary = () => {
   const cartItemsWithMeta = useSelector(selectCartWithMetadata);
   const dispatch = useDispatch<AppDispatch>();
-  const {navigate} = useNavigation();
+  const {navigate} =
+    useNavigation<NavigationProp<MobileStoreParamList, 'PaymentSummary'>>();
 
   const [tempItems] = React.useState(cartItemsWithMeta);
 
