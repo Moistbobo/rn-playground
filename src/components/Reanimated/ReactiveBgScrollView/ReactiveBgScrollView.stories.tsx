@@ -1,17 +1,18 @@
 import React from 'react';
-
+import ReactiveBgScrollView from 'components/Reanimated/ReactiveBgScrollView/index';
 import {Text} from 'react-native';
-import ReactiveBgScrollView from 'components/Reanimated/ReactiveBgScrollView';
+import {storiesOf} from '@storybook/react-native';
+import {text} from '@storybook/addon-knobs';
 
-const PanningScrollWithReactiveBackground = () => {
-  return (
-    <ReactiveBgScrollView>
-      <Text>{text}</Text>
-    </ReactiveBgScrollView>
-  );
-};
+// Looks strange because of storybook
 
-const text = `According to her artist, RAN, MDR is a little on the shorter side for T-Dolls, being around 157cm tall (around 5ft 1in in American units). MDR is one of a number of T-Dolls with heterochromia, and has one blue eye and one pink eye. She has long silvery-white hair reaching to her lower back, accented with a neon pink highlight. She has tied up one side of her hair into a side-tail.
+storiesOf('components', module).add('ReactiveBgScrollView', () => (
+  <ReactiveBgScrollView>
+    <Text>{text('text', dummyText)}</Text>
+  </ReactiveBgScrollView>
+));
+
+const dummyText = `According to her artist, RAN, MDR is a little on the shorter side for T-Dolls, being around 157cm tall (around 5ft 1in in American units). MDR is one of a number of T-Dolls with heterochromia, and has one blue eye and one pink eye. She has long silvery-white hair reaching to her lower back, accented with a neon pink highlight. She has tied up one side of her hair into a side-tail.
 
 MDR's default outfit can be described as fashionable and modern, a fitting style for someone concerned with staying up-to-date on the latest trends. She wears a large black and dark blue jacket with neon pink trimming, under which is a thinner gray soft-shell jacket. She sports a black skirt over a set of black tights. In her damaged art, we can see that she wears a pair of light blue panties, presumably with a matching bra. A beret, a pair of black high-top sneakers, and numerous pouches and belts completes the ensemble. MDR carries with her a range bag, inside which she carries a number of important items: a phone charger shaped like a grenade, a tablet, a gaming device (potentially a gift from RFB), a pair of earbuds, and some packs of rations.
 
@@ -22,5 +23,3 @@ As part of Griffin's anniversary celebrations, a number of T-Dolls have been inv
 Spirit Trap
 
 Of course, there's no way MDR would dare miss out on the Halloween celebrations. To this end, MDR dons a bewitching blue and black dress with a spider web pattern on the front. The dress is adorned with black frills, and a number of spooky decorations can be seen hanging around her waist beside a pair of small bat wings made out of pink fabric (presumably). MDR's left arm is covered by a black glove stretching to the middle of her upper arm, while on her right arm she's sporting a black full arm gloveless sleeve with a cross-hatched pattern. For legwear, MDR has elected to wear a set of black pantyhose with bats printed on them, and for shoes she's chosen a pair of dark blue ankle boots. Her long silver hair has been done up into two small buns, with the rest being allowed to flow out behind her. A pair of small black horns can be seen poking through her hair, and her ears are pointed (likely due to extensions of some kind). Behind her, MDR's drone has been outfitted to carry a white sheet done up to look like a ghost. `;
-
-export default PanningScrollWithReactiveBackground;

@@ -47,7 +47,7 @@ type Props = {
   minTopSpacing?: number;
 };
 
-const ReactivePanningScrollview = ({
+const ReactiveBgScrollView = ({
   children,
   mainColor = '#2E5077',
   subColor = '#4DA1A9',
@@ -222,4 +222,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ReactivePanningScrollview;
+export default ReactiveBgScrollView;
