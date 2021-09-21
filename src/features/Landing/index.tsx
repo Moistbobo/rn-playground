@@ -2,15 +2,16 @@ import React from 'react';
 
 import {FlatList, StyleSheet, View} from 'react-native';
 import TransparentButton from 'components/TransparentButton';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {RootNavigatorParamList} from 'navigation/RootNavigator';
+import {DrawerNavigationProp} from '@react-navigation/drawer';
 
 const routes = ['MobileStore', 'Reanimated'];
 
 const Landing = () => {
   const {navigate} =
-    useNavigation<NavigationProp<RootNavigatorParamList, 'Landing'>>();
+    useNavigation<DrawerNavigationProp<RootNavigatorParamList, 'Landing'>>();
 
   const renderItem = ({item}: {item: string}) => (
     <TransparentButton

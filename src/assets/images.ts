@@ -9,3 +9,5 @@ export const plus = require('./images/plus-solid.png');
 export const check = require('./images/check-solid.png');
 
 export const trash = require('./images/trash-alt-solid.png');
+
+export const bars = require('./images/bars-solid.png');

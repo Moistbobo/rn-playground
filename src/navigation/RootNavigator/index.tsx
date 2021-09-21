@@ -1,8 +1,9 @@
 import React from 'react';
 import Landing from 'features/Landing';
 import MobileStoreStack from 'navigation/RootNavigator/MobileStoreStack';
-import {createStackNavigator} from '@react-navigation/stack';
 import ReanimatedTabs from 'navigation/RootNavigator/ReanimatedTabs';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import DrawerButton from 'components/DrawerButton';
 
 export type RootNavigatorParamList = {
   Landing: undefined;
@@ -10,19 +11,24 @@ export type RootNavigatorParamList = {
   Reanimated: undefined;
 };
 
-const Stack = createStackNavigator<RootNavigatorParamList>();
+const Drawer = createDrawerNavigator<RootNavigatorParamList>();
 
 const RootNavigator = () => {
   return (
-    <Stack.Navigator
+    <Drawer.Navigator
       screenOptions={{
-        headerShown: false,
+        headerLeftContainerStyle: {paddingLeft: 16},
+        headerLeft: () => <DrawerButton tintColor="black" />,
       }}
     >
-      <Stack.Screen name="Landing" component={Landing} />
-      <Stack.Screen name="MobileStore" component={MobileStoreStack} />
-      <Stack.Screen name="Reanimated" component={ReanimatedTabs} />
-    </Stack.Navigator>
+      <Drawer.Screen name="Landing" component={Landing} />
+      <Drawer.Screen
+        options={{headerShown: false}}
+        name="MobileStore"
+        component={MobileStoreStack}
+      />
+      <Drawer.Screen name="Reanimated" component={ReanimatedTabs} />
+    </Drawer.Navigator>
   );
 };
 
