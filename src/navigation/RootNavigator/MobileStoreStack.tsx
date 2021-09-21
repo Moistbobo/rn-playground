@@ -12,6 +12,7 @@ import {useSelector} from 'react-redux';
 import {selectCartCount} from 'features/MobileStore/slice/selectors';
 import {showMessage} from 'react-native-flash-message';
 import {CardStyleInterpolators} from '@react-navigation/stack';
+import DrawerButton from 'components/DrawerButton';
 import Cart from '../../features/MobileStore/pages/Cart';
 import BackButton from '../../components/BackButton';
 import Design from '../../features/MobileStore/config/Design';
@@ -34,6 +35,12 @@ const MobileStoreStack = () => {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
+          headerLeftContainerStyle: {
+            paddingLeft: 16,
+          },
+          headerLeft: () => (
+            <DrawerButton tintColor={Design.colors.reddishBrown} />
+          ),
         }}
         initialRouteName="ItemListing"
       >
@@ -41,7 +48,6 @@ const MobileStoreStack = () => {
           options={({navigation}) => ({
             headerShown: true,
             headerTitle: 'Item Listing',
-            headerLeft: () => undefined,
             headerRight: () => (
               <ShoppingCartButton
                 numCartItems={cartCount}
