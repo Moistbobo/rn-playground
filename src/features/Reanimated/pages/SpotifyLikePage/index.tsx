@@ -13,10 +13,10 @@ import {
   LayoutChangeEvent,
   StatusBar,
   StyleSheet,
+  View,
 } from 'react-native';
 import {mdr1} from 'assets/images';
 import Spacer from 'components/Spacer';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import ActionButtonsRow from 'components/GK/ActionButtonsRow';
 import PurchaseButton from 'components/GK/PurchaseButton';
 import CharaDetails from 'features/Reanimated/pages/SpotifyLikePage/components/CharaDetails';
@@ -39,7 +39,6 @@ const BASE_IMAGE_STYLE: ImageStyle = {
 const headerCompensation = FADE_HEADER_HEIGHT - 40 + height * 0.2;
 
 const SpotifyLikePage = () => {
-  console.log('screen height', height);
   const scrollOffset = useSharedValue(0);
   const contentSize = useSharedValue(0);
   const viewSize = useSharedValue(0);
@@ -142,7 +141,7 @@ const SpotifyLikePage = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <View style={styles.container}>
       <StatusBar
         translucent
         backgroundColor="rgb(153,153,153)"
@@ -177,7 +176,7 @@ const SpotifyLikePage = () => {
       <Animated.View style={[animatedButtonStyle, {position: 'absolute'}]}>
         <PurchaseButton onPress={() => {}} />
       </Animated.View>
-    </SafeAreaView>
+    </View>
   );
 };
 
