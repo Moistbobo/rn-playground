@@ -51,7 +51,11 @@ const ImageButton = ({
       onPress={onPress}
       style={[containerStyle || styles.defaultContainerStyle]}
     >
-      <Image style={[imageStyle || styles.image, {tintColor}]} source={image} />
+      <Image
+        // @ts-ignore
+        style={[imageStyle || styles.image, tintColor && {tintColor}]}
+        source={image}
+      />
     </TouchableOpacity>
   );
 };
