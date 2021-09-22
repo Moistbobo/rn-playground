@@ -1,20 +1,29 @@
 import React from 'react';
 
-import {Text, StyleSheet} from 'react-native';
+import {Text, StyleSheet, AccessibilityProps} from 'react-native';
 
-interface Props {
+interface Props extends AccessibilityProps {
   /**
    * Control style of text from preset styles.
    */
   variant: 'header' | 'subtitle' | 'description';
+
+  /**
+   * Text to render.
+   */
+  children: string;
 }
 
 /**
  * Text component for G&K pages. Renders text using a list of preset styles.
  */
-const GKText: React.FC<Props> = ({variant, children}) => {
+const GKText = ({variant, children, ...rest}: Props) => {
   // @ts-ignore
-  return <Text style={styles[variant]}>{children}</Text>;
+  return (
+    <Text {...rest} style={styles[variant]}>
+      {children}
+    </Text>
+  );
 };
 
 const styles = StyleSheet.create({
