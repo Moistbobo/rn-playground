@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import GKLogo from 'components/GK/GKLogo';
-import GKSubtitle from 'components/GK/GKSubtitle';
 import Spacer from 'components/Spacer';
+import GKText from 'components/GK/GKText';
 
 interface Props {
   /**
@@ -19,7 +19,7 @@ const GKRow = ({label}: Props) => {
     <View style={styles.container}>
       <GKLogo size={25} />
       <Spacer size={8} orientation="horizontal" />
-      <GKSubtitle>{label}</GKSubtitle>
+      <GKText variant="subtitle">{label}</GKText>
     </View>
   );
 };

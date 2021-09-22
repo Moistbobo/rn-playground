@@ -1,8 +1,7 @@
 import React from 'react';
 import Spacer from 'components/Spacer';
-import GKHeader from 'components/GK/GKHeader';
 import GKRow from 'components/GK/GKRow';
-import GKDescription from 'components/GK/GKDescription';
+import GKText from 'components/GK/GKText';
 
 interface Props {
   /**
@@ -28,11 +27,11 @@ interface Props {
 const CharaDetails = ({name, makeNumber, description}: Props) => {
   return (
     <>
-      <GKHeader>{name}</GKHeader>
+      <GKText variant="header">{name}</GKText>
       <Spacer size={8} orientation="vertical" />
       <GKRow label={makeNumber} />
       <Spacer size={8} orientation="vertical" />
-      <GKDescription>{description}</GKDescription>
+      <GKText variant="description">{description}</GKText>
       <Spacer size={16} orientation="vertical" />
     </>
   );
