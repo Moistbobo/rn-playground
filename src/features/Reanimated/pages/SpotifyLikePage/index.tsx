@@ -17,11 +17,9 @@ import {
 import {mdr1} from 'assets/images';
 import Spacer from 'components/Spacer';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import GKRow from 'components/GK/GKRow';
-import GKHeader from 'components/GK/GKHeader';
-import GKDescription from 'components/GK/GKDescription';
 import ActionButtonsRow from 'components/GK/ActionButtonsRow';
 import PurchaseButton from 'components/GK/PurchaseButton';
+import CharaDetails from 'features/Reanimated/pages/SpotifyLikePage/components/CharaDetails';
 
 const {height} = Dimensions.get('window');
 
@@ -144,7 +142,7 @@ const SpotifyLikePage = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top']}>
       <StatusBar
         translucent
         backgroundColor="rgb(153,153,153)"
@@ -161,12 +159,12 @@ const SpotifyLikePage = () => {
         contentContainerStyle={styles.contentContainer}
       >
         <Spacer size={IMAGE_SIZE} orientation="vertical" />
-        <GKHeader>MDR</GKHeader>
-        <Spacer size={8} orientation="vertical" />
-        <GKRow label="No. 215" />
-        <Spacer size={8} orientation="vertical" />
-        <GKDescription>Desert Tech ● Micro Dynamic Rifle</GKDescription>
-        <Spacer size={16} orientation="vertical" />
+
+        <CharaDetails
+          name="MDR"
+          makeNumber="No. 215"
+          description="Desert Tech ● Micro Dynamic Rifle"
+        />
 
         <ActionButtonsRow
           onPressLike={() => {}}

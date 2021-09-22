@@ -9,7 +9,7 @@ const Tabs = createMaterialTopTabNavigator();
 
 const ReanimatedTabs = () => {
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}} edges={['top']}>
       <Tabs.Navigator
         screenOptions={{
           lazy: true,
