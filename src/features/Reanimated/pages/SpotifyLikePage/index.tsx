@@ -36,7 +36,7 @@ const BASE_IMAGE_STYLE: ImageStyle = {
   alignSelf: 'center',
 };
 
-const headerCompensation = FADE_HEADER_HEIGHT - 40 + height * 0.2;
+const headerCompensation = FADE_HEADER_HEIGHT - 40 + height * 0.24;
 
 const SpotifyLikePage = () => {
   const scrollOffset = useSharedValue(0);
@@ -116,7 +116,7 @@ const SpotifyLikePage = () => {
     return {
       position: 'absolute',
       right: 16,
-      top: height * 0.45,
+      top: height * 0.43,
       zIndex: 3,
       transform: [
         {
