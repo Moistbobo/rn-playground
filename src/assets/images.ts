@@ -10,6 +10,8 @@ export const check = require('./images/check-solid.png');
 
 export const trash = require('./images/trash-alt-solid.png');
 
+export const bars = require('./images/bars-solid.png');
+
 // spotify like page
 export const mdr1 = require('./images/MDR_S.png');
 

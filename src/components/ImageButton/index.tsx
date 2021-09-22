@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  AccessibilityProps,
   ColorValue,
   Image,
   ImageSourcePropType,
@@ -9,7 +10,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
-type Props = {
+interface Props extends AccessibilityProps {
   /**
    * Override the container style (i.e positioning).
    */
@@ -34,7 +35,7 @@ type Props = {
    * Callback to handle the button press.
    */
   onPress: () => void;
-};
+}
 
 /**
  * A component that makes an image pressable with a callback.
@@ -45,9 +46,11 @@ const ImageButton = ({
   image,
   onPress,
   imageStyle,
+  ...rest // accessibility proprs
 }: Props) => {
   return (
     <TouchableOpacity
+      {...rest}
       onPress={onPress}
       style={[containerStyle || styles.defaultContainerStyle]}
     >
