@@ -29,7 +29,6 @@ const IMAGE_SIZE = height * 0.33;
 const FADE_HEADER_HEIGHT = height * 0.1;
 
 const BASE_IMAGE_STYLE: ImageStyle = {
-  top: 20,
   width: IMAGE_SIZE,
   height: IMAGE_SIZE,
   resizeMode: 'cover',
@@ -55,17 +54,18 @@ const SpotifyLikePage = () => {
     if (!scrollPercentage) {
       return BASE_IMAGE_STYLE;
     }
+
     const scale = interpolate(
       scrollPercentage.value || 0,
-      [-1, 0, 0.15, 0.25],
-      [1, 0.8, 0.5, 0.5],
+      [-1, 0, 0.1],
+      [1.2, 0.8, 0.4],
       Extrapolate.CLAMP,
     );
 
     const translateY = interpolate(
       scrollPercentage.value || 0,
-      [0, 0.2, 0.25],
-      [0, -IMAGE_SIZE * 0.55, -IMAGE_SIZE],
+      [0, 0.1, 0.25],
+      [0, -scrollOffset.value, -scrollOffset.value * 2],
       Extrapolate.CLAMP,
     );
 
@@ -188,7 +188,7 @@ const SpotifyLikePage = () => {
 const calculateBackdropOffset = () => {
   if (Platform.OS === 'android') {
     const statusBarHeight = StatusBar.currentHeight;
-    return (statusBarHeight || 0) * 0.25;
+    return statusBarHeight || 1 * 0;
   } else {
     return 0;
   }
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
   },
   backdrop: {
     width: '100%',
-    height: calculateBackdropOffset() + height * 0.705,
+    height: calculateBackdropOffset() + height * 0.71,
     backgroundColor: 'rgba(153,153,153,0.3)',
     position: 'absolute',
     top: -height * 0.25,
