@@ -11,6 +11,7 @@ import {
   Dimensions,
   ImageStyle,
   LayoutChangeEvent,
+  Platform,
   StatusBar,
   StyleSheet,
   View,
@@ -34,6 +35,7 @@ const BASE_IMAGE_STYLE: ImageStyle = {
   resizeMode: 'cover',
   position: 'absolute',
   alignSelf: 'center',
+  zIndex: 2,
 };
 
 const headerCompensation = FADE_HEADER_HEIGHT - 40 + height * 0.24;
@@ -149,29 +151,32 @@ const SpotifyLikePage = () => {
       />
       <Animated.View style={animatedHeaderStyle} />
       <Animated.Image source={mdr1} style={[mainImageStyle]} />
+
       <Animated.ScrollView
         onScroll={scrollHandler}
         scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
         onLayout={onLayout}
         onContentSizeChange={onContentSizeChange}
-        contentContainerStyle={styles.contentContainer}
       >
-        <Spacer size={IMAGE_SIZE} orientation="vertical" />
+        <View style={styles.backdrop} />
+        <View style={styles.innerContentWrapper}>
+          <Spacer size={IMAGE_SIZE} orientation="vertical" />
 
-        <CharaDetails
-          name="MDR"
-          makeNumber="No. 215"
-          description="Desert Tech ● Micro Dynamic Rifle"
-        />
+          <CharaDetails
+            name="MDR"
+            makeNumber="No. 215"
+            description="Desert Tech ● Micro Dynamic Rifle"
+          />
 
-        <ActionButtonsRow
-          onPressLike={() => {}}
-          onPressDl={() => {}}
-          onPressMore={() => {}}
-        />
+          <ActionButtonsRow
+            onPressLike={() => {}}
+            onPressDl={() => {}}
+            onPressMore={() => {}}
+          />
 
-        <Spacer size={1600} orientation="vertical" />
+          <Spacer size={1600} orientation="vertical" />
+        </View>
       </Animated.ScrollView>
       <Animated.View style={[animatedButtonStyle, {position: 'absolute'}]}>
         <PurchaseButton onPress={() => {}} />
@@ -180,12 +185,22 @@ const SpotifyLikePage = () => {
   );
 };
 
+const calculateBackdropOffset = () => {
+  if (Platform.OS === 'android') {
+    const statusBarHeight = StatusBar.currentHeight;
+    return (statusBarHeight || 0) * 0.25;
+  } else {
+    return 0;
+  }
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'black',
   },
-  contentContainer: {
+  innerContentWrapper: {
+    zIndex: 2,
     paddingHorizontal: 16,
   },
   header: {
@@ -196,6 +211,16 @@ const styles = StyleSheet.create({
   description: {
     color: 'rgb(153,153,153)',
     fontSize: 12,
+  },
+  backdrop: {
+    width: '100%',
+    height: calculateBackdropOffset() + height * 0.705,
+    backgroundColor: 'rgba(153,153,153,0.3)',
+    position: 'absolute',
+    top: -height * 0.25,
+    left: 0,
+    right: 0,
+    zIndex: 1,
   },
 });
 

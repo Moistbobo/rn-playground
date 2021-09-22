@@ -1,9 +1,9 @@
 import React from 'react';
-import Landing from 'features/Landing';
 import MobileStoreStack from 'navigation/RootNavigator/MobileStoreStack';
-import ReanimatedTabs from 'navigation/RootNavigator/ReanimatedTabs';
+import ReanimatedStack from 'navigation/RootNavigator/ReanimatedStack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import DrawerButton from 'components/DrawerButton';
+import Landing from 'features/Landing';
 
 export type RootNavigatorParamList = {
   Landing: undefined;
@@ -27,7 +27,11 @@ const RootNavigator = () => {
         name="MobileStore"
         component={MobileStoreStack}
       />
-      <Drawer.Screen name="Reanimated" component={ReanimatedTabs} />
+      <Drawer.Screen
+        options={{headerShown: false}}
+        name="Reanimated"
+        component={ReanimatedStack}
+      />
     </Drawer.Navigator>
   );
 };
