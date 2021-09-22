@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {View, FlatList} from 'react-native';
+import {View, FlatList, StyleSheet} from 'react-native';
 import GKText from 'components/GK/GKText';
 import GKAlsoLikeListItem from 'components/GK/GKAlsoLikeList/GKAlsoLikeListItem';
 import Spacer from 'components/Spacer';
@@ -36,8 +36,11 @@ const GKAlsoLikeList = ({data, onItemPress, label}: Props) => {
 
   return (
     <View>
-      <GKText variant="header">{label}</GKText>
-      <Spacer size={8} />
+      <View style={styles.textContainer}>
+        <GKText variant="subtitle">{label}</GKText>
+      </View>
+
+      <Spacer size={16} />
       <FlatList
         horizontal
         ItemSeparatorComponent={() => (
@@ -49,5 +52,11 @@ const GKAlsoLikeList = ({data, onItemPress, label}: Props) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  textContainer: {
+    paddingLeft: 8,
+  },
+});
 
 export default GKAlsoLikeList;

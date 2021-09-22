@@ -36,7 +36,7 @@ const ReanimatedStack = () => {
 
       <Stack.Screen
         options={{
-          headerShown: true,
+          headerShown: false,
         }}
         name="SpotifyLikePage"
         component={SpotifyLikePage}

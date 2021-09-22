@@ -20,25 +20,36 @@ type Props = {
    * Adjust the color of the arrow. The default color of the image is white.
    */
   tintColor?: ColorValue;
+
+  /**
+   * Override default size.
+   * @default 40
+   */
+  size?: number;
 };
 
 /**
  * A left arrow button that calls goBack using react navigation hook.
  */
-const BackButton = ({containerStyle, tintColor = 'black'}: Props) => {
+const BackButton = ({
+  containerStyle,
+  tintColor = 'black',
+  size = 40,
+}: Props) => {
   const {goBack} = useNavigation();
 
   return (
     <TouchableOpacity onPress={goBack} style={{...containerStyle}}>
-      <Image style={[styles.image, {tintColor}]} source={arrowLeft} />
+      <Image
+        style={[styles.image, {width: size, height: size, tintColor}]}
+        source={arrowLeft}
+      />
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   image: {
-    width: 40,
-    height: 40,
     resizeMode: 'contain',
   },
 });

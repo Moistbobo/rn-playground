@@ -4,7 +4,6 @@ import Animated, {
   Extrapolate,
   useAnimatedScrollHandler,
   useAnimatedStyle,
-  useDerivedValue,
   useSharedValue,
 } from 'react-native-reanimated';
 import {
@@ -21,14 +20,24 @@ import Spacer from 'components/Spacer';
 import ActionButtonsRow from 'components/GK/ActionButtonsRow';
 import PurchaseButton from 'components/GK/PurchaseButton';
 import CharaDetails from 'features/Reanimated/pages/SpotifyLikePage/components/CharaDetails';
+import GKListItem from 'components/GK/GKListItem';
+import GKListSummary from 'components/GK/GKListSummary';
+import GKRow from 'components/GK/GKRow';
+import GKAlsoLikeList from 'components/GK/GKAlsoLikeList';
+import GKText from 'components/GK/GKText';
+import LinearGradient from 'react-native-linear-gradient';
+import BackButton from 'components/BackButton';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {hasNotch} from 'react-native-device-info';
 
 const {height} = Dimensions.get('window');
 
 const IMAGE_SIZE = height * 0.33;
 
-const FADE_HEADER_HEIGHT = height * 0.1;
+const FADE_HEADER_HEIGHT = 20 + height * 0.08;
 
 const BASE_IMAGE_STYLE: ImageStyle = {
+  top: 30,
   width: IMAGE_SIZE,
   height: IMAGE_SIZE,
   resizeMode: 'cover',
@@ -37,41 +46,32 @@ const BASE_IMAGE_STYLE: ImageStyle = {
   zIndex: 2,
 };
 
-const headerCompensation = FADE_HEADER_HEIGHT - 40 + height * 0.24;
+const headerCompensation =
+  FADE_HEADER_HEIGHT - (hasNotch() ? -4 : 30) + height * 0.22;
 
 const SpotifyLikePage = () => {
   const scrollOffset = useSharedValue(0);
   const contentSize = useSharedValue(0);
   const viewSize = useSharedValue(0);
 
-  const scrollPercentage = useDerivedValue(() => {
-    if (!contentSize || !viewSize) return 0;
-
-    return scrollOffset.value / (contentSize.value - viewSize.value);
-  }, [contentSize, viewSize]);
-
   const mainImageStyle = useAnimatedStyle(() => {
-    if (!scrollPercentage) {
-      return BASE_IMAGE_STYLE;
-    }
-
     const scale = interpolate(
-      scrollPercentage.value || 0,
-      [-1, 0, 0.1],
+      scrollOffset.value,
+      [-100, 0, 150],
       [1.2, 0.8, 0.4],
       Extrapolate.CLAMP,
     );
 
     const translateY = interpolate(
-      scrollPercentage.value || 0,
-      [0, 0.1, 0.25],
+      scrollOffset.value,
+      [0, 150, 375],
       [0, -scrollOffset.value, -scrollOffset.value * 2],
       Extrapolate.CLAMP,
     );
 
     const opacity = interpolate(
-      scrollPercentage.value || 0,
-      [0, 0.1, 0.2],
+      scrollOffset.value,
+      [0, 150, 300],
       [1, 1, 0],
       Extrapolate.CLAMP,
     );
@@ -88,24 +88,23 @@ const SpotifyLikePage = () => {
         },
       ],
     };
-  }, [scrollPercentage]);
+  }, []);
 
   const animatedHeaderStyle = useAnimatedStyle(() => {
     const opacity = interpolate(
-      scrollPercentage.value || 0,
-      [0, 0.1, 0.2, 0.25],
+      scrollOffset.value,
+      [0, 150, 300, 375],
       [0, 0, 0, 1],
     );
 
     return {
       position: 'absolute',
       width: '100%',
-      height: FADE_HEADER_HEIGHT,
-      backgroundColor: 'gray',
+      backgroundColor: '#6ab0e2',
       zIndex: 2,
       opacity,
     };
-  }, [scrollPercentage]);
+  }, []);
 
   const animatedButtonStyle = useAnimatedStyle(() => {
     const translateY = interpolate(
@@ -126,7 +125,7 @@ const SpotifyLikePage = () => {
         },
       ],
     };
-  }, [scrollPercentage]);
+  }, []);
 
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: event => {
@@ -149,7 +148,19 @@ const SpotifyLikePage = () => {
         backgroundColor="rgb(153,153,153)"
         barStyle="light-content"
       />
-      <Animated.View style={animatedHeaderStyle} />
+      <Animated.View style={animatedHeaderStyle}>
+        <SafeAreaView style={styles.headerGroup} edges={['top']}>
+          <LinearGradient
+            colors={['#6ab0e2', '#2d4454']}
+            start={{x: 0, y: 0}}
+            end={{x: 0, y: 1}}
+            style={{position: 'absolute', top: 0, right: 0, left: 0, bottom: 0}}
+          />
+          <BackButton tintColor="white" size={20} />
+          <Spacer size={24} orientation="horizontal" />
+          <GKText variant="subtitle">MDR - Micro Dynamic Rifle</GKText>
+        </SafeAreaView>
+      </Animated.View>
       <Animated.Image source={mdr1} style={[mainImageStyle]} />
 
       <Animated.ScrollView
@@ -159,9 +170,15 @@ const SpotifyLikePage = () => {
         onLayout={onLayout}
         onContentSizeChange={onContentSizeChange}
       >
-        <View style={styles.backdrop} />
+        <LinearGradient
+          colors={['#6ab0e2', '#000000']}
+          start={{x: 0, y: 0}}
+          end={{x: 0, y: 1}}
+          style={styles.backdrop}
+        />
+
         <View style={styles.innerContentWrapper}>
-          <Spacer size={IMAGE_SIZE} orientation="vertical" />
+          <Spacer size={IMAGE_SIZE + 30} orientation="vertical" />
 
           <CharaDetails
             name="MDR"
@@ -175,8 +192,39 @@ const SpotifyLikePage = () => {
             onPressMore={() => {}}
           />
 
-          <Spacer size={1600} orientation="vertical" />
+          <Spacer size={16} />
+
+          {dummyListItems.map(item => (
+            <>
+              <GKListItem
+                onPressItem={() => {}}
+                onPressMore={() => {}}
+                label={item.label}
+                subtitle={item.subtitle}
+              />
+              <Spacer size={16} />
+            </>
+          ))}
+
+          <GKListSummary date={new Date().toISOString()} line2="2 Costumes" />
+          <Spacer size={16} />
+
+          <GKRow label="Griffin & Kryuger PMC" iconSize={50} />
+          <Spacer size={16} />
         </View>
+
+        <GKAlsoLikeList
+          onItemPress={() => () => {}}
+          label="You may also like"
+          data={dummyAlsoLikeList}
+        />
+        <Spacer size={32} />
+
+        <GKText variant="subtitle">
+          © SUNBORN Network Technology Co., Ltd. All Rights Reserved.
+        </GKText>
+
+        <Spacer size={height * 0.35} />
       </Animated.ScrollView>
       <Animated.View style={[animatedButtonStyle, {position: 'absolute'}]}>
         <PurchaseButton onPress={() => {}} />
@@ -184,6 +232,40 @@ const SpotifyLikePage = () => {
     </View>
   );
 };
+
+const dummyListItems = [
+  {
+    label: 'Spirit Trap',
+    subtitle: 'Alternate Costume A',
+  },
+  {
+    label: 'Cocktail Observer',
+    subtitle: 'Alternate Costume B',
+  },
+];
+
+const dummyAlsoLikeList = [
+  {
+    image: 'https://i.imgur.com/NU7zuAZ.png',
+    label: 'AA-12',
+  },
+  {
+    image: 'https://i.imgur.com/pLYOYoS.png',
+    label: 'HK-416',
+  },
+  {
+    image: 'https://i.imgur.com/nPGTGXe.png',
+    label: 'AK-12',
+  },
+  {
+    image: 'https://i.imgur.com/4LcELwW.png',
+    label: 'AK-Alfa',
+  },
+  {
+    image: 'https://i.imgur.com/CZS3enL.png',
+    label: 'AN-94',
+  },
+];
 
 const calculateBackdropOffset = () => {
   if (Platform.OS === 'android') {
@@ -221,6 +303,13 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     zIndex: 1,
+  },
+  headerGroup: {
+    paddingLeft: 16,
+    paddingVertical: 16,
+    flexDirection: 'row',
+    flex: 1,
+    alignItems: 'center',
   },
 });
 

@@ -2,7 +2,7 @@ import React from 'react';
 import Spacer from 'components/Spacer';
 import GKRow from 'components/GK/GKRow';
 import GKText from 'components/GK/GKText';
-
+// todo: move this into components folder
 interface Props {
   /**
    * Name of the character.
