@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import style from './style';
 
-export default function CenterView({ children, backgroundColor }) {
-  return <View style={[style.main, {backgroundColor}]}>{children}</View>;
+export default function CenterView({alignCenter, justifyContent, children, backgroundColor }) {
+  return <View style={[style.main, {backgroundColor, alignCenter, justifyContent}]}>{children}</View>;
 }
 
 CenterView.defaultProps = {

@@ -15,7 +15,7 @@ type Props = {
    */
   orientation?: 'vertical' | 'horizontal' | 'both';
 };
-const Spacer = ({size, orientation}: Props) => {
+const Spacer = ({size, orientation = 'vertical'}: Props) => {
   return (
     <View
       accessibilityLabel="spacer"

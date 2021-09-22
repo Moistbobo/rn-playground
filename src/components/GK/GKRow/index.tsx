@@ -9,15 +9,21 @@ interface Props {
    * Label that will be shown next to the G&K logo
    */
   label: string;
+
+  /**
+   * The size of the icon.
+   * @default 25
+   */
+  iconSize?: number;
 }
 
 /**
  * A component that renders the G&K logo and a label horizontally
  */
-const GKRow = ({label}: Props) => {
+const GKRow = ({label, iconSize = 25}: Props) => {
   return (
     <View style={styles.container}>
-      <GKLogo size={25} />
+      <GKLogo size={iconSize} />
       <Spacer size={8} orientation="horizontal" />
       <GKText variant="subtitle">{label}</GKText>
     </View>
