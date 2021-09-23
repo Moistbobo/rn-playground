@@ -23,9 +23,6 @@ import {showFlashMessage} from 'lib/FlashMessageWrapper';
 
 const {height} = Dimensions.get('window');
 
-// size of the main image
-const IMAGE_SIZE = height * 0.33;
-
 // dummy space so the scrollview can be scrolled enough to trigger animations */
 const DUMMY_SPACE = height * 0.45;
 
@@ -38,6 +35,7 @@ const SpotifyLikePage = () => {
     animatedImageStyle,
     animatedHeaderStyle,
     animatedButtonStyle,
+    imageSize,
   } = useAnimations();
 
   const {top: topSafeAreaInset} = useSafeAreaInsets();
@@ -67,7 +65,7 @@ const SpotifyLikePage = () => {
         <Backdrop />
 
         <View style={styles.innerContentWrapper}>
-          <Spacer size={IMAGE_SIZE + topSafeAreaInset} orientation="vertical" />
+          <Spacer size={imageSize + topSafeAreaInset} orientation="vertical" />
 
           <GKCharaDetails
             name="MDR"

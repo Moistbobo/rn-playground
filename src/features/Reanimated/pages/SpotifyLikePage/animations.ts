@@ -8,11 +8,10 @@ import {
 import {Dimensions} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
-const IMAGE_SIZE = Dimensions.get('window').height * 0.33;
-
 const useAnimations = () => {
   const scrollOffset = useSharedValue(0);
   const safeAreaInsets = useSafeAreaInsets();
+  const imageSize = Dimensions.get('window').height * 0.33;
 
   /**
    * Scroll handler to consume the scroll event.
@@ -51,8 +50,8 @@ const useAnimations = () => {
 
     return {
       top: safeAreaInsets.top,
-      width: IMAGE_SIZE,
-      height: IMAGE_SIZE,
+      width: imageSize,
+      height: imageSize,
       resizeMode: 'cover',
       position: 'absolute',
       alignSelf: 'center',
@@ -102,7 +101,7 @@ const useAnimations = () => {
    */
   const animatedButtonStyle = useAnimatedStyle(() => {
     // 32 is from the verticalPadding of the fading header
-    const buttonTranslationDistance = IMAGE_SIZE + 32;
+    const buttonTranslationDistance = imageSize + 32;
 
     const translateY = interpolate(
       scrollOffset.value || 0,
@@ -132,6 +131,7 @@ const useAnimations = () => {
     animatedHeaderStyle,
     animatedButtonStyle,
     scrollHandler,
+    imageSize,
   };
 };
 
