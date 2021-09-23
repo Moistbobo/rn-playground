@@ -3,19 +3,21 @@ import React from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
 import TransparentButton from 'components/TransparentButton';
 import {useNavigation} from '@react-navigation/native';
-import {RootNavigatorParamList} from 'navigation/RootNavigator';
-import {DrawerNavigationProp} from '@react-navigation/drawer';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {ReanimatedStackParamList} from 'navigation/RootNavigator/ReanimatedStack';
 
-const routes = ['MobileStore', 'Reanimated'];
+const routes = ['ReactiveScrollview', 'SpotifyLikePage'];
 
-const Landing = () => {
+const ReanimatedLanding = () => {
   const {navigate} =
-    useNavigation<DrawerNavigationProp<RootNavigatorParamList, 'Landing'>>();
+    useNavigation<
+      NativeStackNavigationProp<ReanimatedStackParamList, 'Landing'>
+    >();
 
   const renderItem = ({item}: {item: string}) => (
     <TransparentButton
       label={item}
-      onPress={() => navigate(item as keyof RootNavigatorParamList)}
+      onPress={() => navigate(item as keyof ReanimatedStackParamList)}
       color="#4267B2"
     />
   );
@@ -38,4 +40,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Landing;
+export default ReanimatedLanding;
