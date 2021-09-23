@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   innerContentWrapper: {
-    zIndex: 2,
+    zIndex: 1,
     paddingHorizontal: 16,
   },
 });

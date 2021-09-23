@@ -56,7 +56,7 @@ const useAnimations = () => {
       resizeMode: 'cover',
       position: 'absolute',
       alignSelf: 'center',
-      zIndex: 2,
+      zIndex: 1,
       opacity,
       transform: [
         {
@@ -83,7 +83,7 @@ const useAnimations = () => {
       position: 'absolute',
       width: '100%',
       backgroundColor: '#6ab0e2',
-      zIndex: 2,
+      zIndex: 1,
       opacity,
     };
   }, []);
@@ -117,7 +117,7 @@ const useAnimations = () => {
       position: 'absolute',
       right: 16,
       top: newCompensation,
-      zIndex: 3,
+      zIndex: 2,
       transform: [
         {
           translateY,
