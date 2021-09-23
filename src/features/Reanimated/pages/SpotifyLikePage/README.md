@@ -7,4 +7,4 @@ Key behaviors:
 - The header fades in after the user has scrolled up to a threshold
 - The Play (in this case the $ button) button scrolls with the list before stopping right on the end of the header
 
-![](https://i.imgur.com/eR2GdlW.gif)
+[Preview video](https://i.imgur.com/eR2GdlW.mp4)
