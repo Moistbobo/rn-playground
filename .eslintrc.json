@@ -3,25 +3,46 @@
     "es6": true,
     "jest": true
   },
-  "extends": ["airbnb", "@react-native-community"],
+  "extends": [
+    "airbnb",
+    "@react-native-community"
+  ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "plugins": [
+    "@typescript-eslint",
+    "react-native"
+  ],
   "globals": {
     "window": true,
     "fetch": false
   },
   "rules": {
-    "react/jsx-filename-extension": [1, {"extensions": [".jsx", ".tsx"]}],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".jsx",
+          ".tsx"
+        ]
+      }
+    ],
     "import/extensions": 0,
     "react/jsx-props-no-spreading": 0,
     "react-hooks/exhaustive-deps": 0,
     "react/require-default-props": 0,
+    "react-native/no-unused-styles": "error",
     "import/no-extraneous-dependencies": 0
   },
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx", ".json"]
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx",
+          ".json"
+        ]
       },
       "typescript": {}
     }

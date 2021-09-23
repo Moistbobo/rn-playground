@@ -4,7 +4,7 @@ import {Dimensions, StatusBar, StyleSheet, View} from 'react-native';
 import {dollarSign, mdr1} from 'assets/images';
 import Spacer from 'components/Spacer';
 import ActionButtonsRow from 'components/GK/ActionButtonsRow';
-import CharaDetails from 'features/Reanimated/pages/SpotifyLikePage/components/CharaDetails';
+import GKCharaDetails from 'components/GK/GKCharaDetails';
 import GKListItem from 'components/GK/GKListItem';
 import GKListSummary from 'components/GK/GKListSummary';
 import GKRow from 'components/GK/GKRow';
@@ -69,7 +69,7 @@ const SpotifyLikePage = () => {
         <View style={styles.innerContentWrapper}>
           <Spacer size={IMAGE_SIZE + topSafeAreaInset} orientation="vertical" />
 
-          <CharaDetails
+          <GKCharaDetails
             name="MDR"
             makeNumber="No. 215"
             description="Desert Tech ● Micro Dynamic Rifle"
@@ -147,22 +147,6 @@ const styles = StyleSheet.create({
   innerContentWrapper: {
     zIndex: 2,
     paddingHorizontal: 16,
-  },
-  header: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 18,
-  },
-  description: {
-    color: 'rgb(153,153,153)',
-    fontSize: 12,
-  },
-  headerGroup: {
-    paddingLeft: 16,
-    paddingVertical: 16,
-    flexDirection: 'row',
-    flex: 1,
-    alignItems: 'center',
   },
 });
 
