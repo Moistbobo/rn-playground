@@ -5,22 +5,10 @@ import {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
-import {Dimensions, ImageStyle} from 'react-native';
+import {Dimensions} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
-const {height} = Dimensions.get('window');
-
-const IMAGE_SIZE = height * 0.33;
-
-const BASE_IMAGE_STYLE: ImageStyle = {
-  top: 30,
-  width: IMAGE_SIZE,
-  height: IMAGE_SIZE,
-  resizeMode: 'cover',
-  position: 'absolute',
-  alignSelf: 'center',
-  zIndex: 2,
-};
+const IMAGE_SIZE = Dimensions.get('window').height * 0.33;
 
 const useAnimations = () => {
   const scrollOffset = useSharedValue(0);
@@ -37,7 +25,7 @@ const useAnimations = () => {
 
   /**
    * Main image animation.
-   * Scales down before translating up along the Y axis & fading away
+   * Scales smaller before translating up along the Y axis & fading away
    */
   const animatedImageStyle = useAnimatedStyle(() => {
     const scale = interpolate(
@@ -62,7 +50,13 @@ const useAnimations = () => {
     );
 
     return {
-      ...BASE_IMAGE_STYLE,
+      top: safeAreaInsets.top,
+      width: IMAGE_SIZE,
+      height: IMAGE_SIZE,
+      resizeMode: 'cover',
+      position: 'absolute',
+      alignSelf: 'center',
+      zIndex: 2,
       opacity,
       transform: [
         {
@@ -98,13 +92,22 @@ const useAnimations = () => {
    * Animated styles for the Purchase button. Scrolls along with the scrollview
    * content before stopping snugly on the header, while the underlying scrollview
    * continues to scroll.
+   *
+   * The idea behind the purchase button is that the button starts translated along the
+   * y axis, and the translateY value slowly goes to 0 as the user scrolls up.
+   * My original approach was to translate the button along with the scroll before capping
+   * the maximum translation value so it stops at the right position (half on half off the fading header),
+   * but I felt that it was too difficult to get that method to work across different device
+   * screens, as well as supporting devices with notches
    */
   const animatedButtonStyle = useAnimatedStyle(() => {
+    // 32 is from the verticalPadding of the fading header
     const buttonTranslationDistance = IMAGE_SIZE + 32;
+
     const translateY = interpolate(
       scrollOffset.value || 0,
-      [-buttonTranslationDistance, 0, buttonTranslationDistance], // last value has to be the same as second index of outputRange
-      [buttonTranslationDistance * 2, buttonTranslationDistance, 0], // calculate this based on safearea + image + image offset + spacer
+      [-buttonTranslationDistance, 0, buttonTranslationDistance],
+      [buttonTranslationDistance * 2, buttonTranslationDistance, 0],
       Extrapolate.CLAMP,
     );
 
