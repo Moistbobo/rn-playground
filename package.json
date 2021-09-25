@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "ENVFILE=.env.development react-native run-android",
+    "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
@@ -13,7 +13,9 @@
     "prestorybook": "rnstl",
     "use:main": "cp index.main.js index.js",
     "use:storybook": "cp index.storybook.js index.js && yarn prestorybook",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "android:dev" : "yarn android --variant=devDebug --appIdSuffix=dev",
+    "android:staging" : "yarn android --variant=stagingDebug --appIdSuffix=staging"
   },
   "dependencies": {
     "@react-native-masked-view/masked-view": "^0.2.6",

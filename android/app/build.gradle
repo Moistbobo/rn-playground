@@ -1,7 +1,7 @@
 apply plugin: "com.android.application"
 project.ext.envConfigFiles = [
-    debug: ".env.development",
-    release: ".env.production",
+        debug  : ".env.development",
+        release: ".env.production",
 ]
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
@@ -83,7 +83,7 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    enableHermes: true,  // clean and rebuild if changing
+        enableHermes: true,  // clean and rebuild if changing
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -153,6 +153,9 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+
+        }
     }
     buildTypes {
         debug {
@@ -166,6 +169,34 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+
+    flavorDimensions "version"
+
+    productFlavors {
+        dev {
+            dimension "version"
+            applicationIdSuffix '.dev'
+            manifestPlaceholders = [appNameSuffix: "_dev"]
+            versionCode 1
+            versionName "1.0.0"
+        }
+
+        staging {
+            dimension "version"
+            applicationIdSuffix '.staging'
+            manifestPlaceholders = [appNameSuffix: "_staging"]
+            versionCode 1
+            versionName "1.0.0"
+        }
+
+        production {
+            dimension "version"
+            manifestPlaceholders = [appNameSuffix: ""]
+            versionCode 1
+            versionName "1.0.0"
+        }
+    }
+
 
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
@@ -192,16 +223,16 @@ dependencies {
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
-      exclude group:'com.facebook.fbjni'
+        exclude group: 'com.facebook.fbjni'
     }
 
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
-        exclude group:'com.facebook.flipper'
-        exclude group:'com.squareup.okhttp3', module:'okhttp'
+        exclude group: 'com.facebook.flipper'
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
     }
 
     debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
-        exclude group:'com.facebook.flipper'
+        exclude group: 'com.facebook.flipper'
     }
 
     if (enableHermes) {
