@@ -59,6 +59,8 @@ buck-out/
 /ios/Pods/
 
 .env.development
+.env.production
+.env.staging
 .env
 
 storyLoader.js
