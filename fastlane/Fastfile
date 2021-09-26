@@ -6,20 +6,30 @@ firebaseAndroidAppId = ENV["FIREBASE_ANDROID_APP_ID"]
 firebaseCliToken = ENV["FIREBASE_CLI_TOKEN"]
 serviceCredentials = ENV["FIREBASE_APP_SERVICE_CREDENTIALS_JSON"]
 
+# Lane that uploads an apk or ipa to testfairy
 lane :toTestFairy do |values|
-    apk = values[:apk] if values[:apk]
-    ipa = values[:ipa] if values[:ipa]
+    apk = values[:apk]
+    ipa = values[:ipa]
 
     if(!testFairyAPIKey)
         UI.error("No TESTFAIRY_API_KEY found in .env. Aborting.")
         next
     end
 
-    testfairy(
-        api_key: testFairyAPIKey,
-        apk: apk,
-        ipa: ipa
-    )
+    # testfairy only supports apk for android
+    if(apk)
+        testfairy(
+            api_key: testFairyAPIKey,
+            apk: apk
+        )
+    end
+
+    if(ipa)
+        testfairy(
+            api_key: testFairyAPIKey,
+            ipa: ipa
+        )
+    end
 end
 
 platform :android do
@@ -80,7 +90,6 @@ platform :android do
         end
 
         if(toTestFairy)
-            # testfairy only supports apk for android
             toTestFairy(apk: apkPaths[0])
         end
 
