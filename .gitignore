@@ -63,4 +63,8 @@ buck-out/
 .env.staging
 .env
 
+keystore.properties
+signing-key
+google-service-account-credentials.json
+
 storyLoader.js

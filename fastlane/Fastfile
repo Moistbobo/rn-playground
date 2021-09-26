@@ -1,0 +1,55 @@
+
+artifactDir = ENV["ARTIFACT_OUTPUT_DIR"]
+
+platform :android do
+
+    androidDir = ENV["ANDROID_DIR"]
+
+    lane :build do |values|
+       task = values[:task]
+       buildType = values[:buildType]
+       flavor = values[:flavor]
+       copy = values[:copy]
+       toPlayStore = values[:toPlayStore]
+
+       gradle(
+           project_dir: androidDir,
+           task: "clean"
+       )
+
+       gradle(
+           project_dir: androidDir,
+           task: task,
+           build_type: buildType,
+           flavor: flavor
+       )
+
+        artifacts = []
+        artifacts << lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH] if lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+        artifacts << lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH] if lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH]
+
+        UI.message("artifacts to be copied")
+        UI.message(artifacts);
+
+        if (copy)
+            copy_artifacts(
+                artifacts: artifacts,
+                target_path: artifactDir,
+                fail_on_missing: false
+            )
+        end
+
+        if(toPlayStore)
+            supply(
+                aab_paths: lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH],
+                skip_upload_metadata: true,
+                skip_upload_changelogs: true,
+                skip_upload_images: true,
+                skip_upload_screenshots: true,
+                track: 'internal',
+                release_status: 'draft'
+            )
+        end
+
+    end
+end
