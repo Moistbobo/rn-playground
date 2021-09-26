@@ -2,7 +2,9 @@
 artifactDir = ENV["ARTIFACT_OUTPUT_DIR"]
 androidDir = ENV["ANDROID_DIR"]
 testFairyAPIKey = ENV["TESTFAIRY_API_KEY"]
-
+firebaseAndroidAppId = ENV["FIREBASE_ANDROID_APP_ID"]
+firebaseCliToken = ENV["FIREBASE_CLI_TOKEN"]
+serviceCredentials = ENV["FIREBASE_APP_SERVICE_CREDENTIALS_JSON"]
 
 lane :toTestFairy do |values|
     apk = values[:apk] if values[:apk]
@@ -22,7 +24,6 @@ end
 
 platform :android do
 
-
     lane :build do |values|
        task = values[:task]
        buildType = values[:buildType]
@@ -30,6 +31,7 @@ platform :android do
        copy = values[:copy]
        toPlayStore = values[:toPlayStore]
        toTestFairy = values[:toTestFairy]
+       toFirebase = values[:toFirebase]
 
        gradle(
            project_dir: androidDir,
@@ -80,6 +82,15 @@ platform :android do
         if(toTestFairy)
             # testfairy only supports apk for android
             toTestFairy(apk: apkPaths[0])
+        end
+
+        if(toFirebase)
+            firebase_app_distribution(
+                app: firebaseAndroidAppId,
+                firebase_cli_token: firebaseCliToken,
+                #service_credentials_file: serviceCredentials,
+                #android_artifact_path: "/Users/kevinpangappit/Projects/rn-playground/android/app/build/outputs/apk/production/release/app-production-release.apk"
+            )
         end
 
     end

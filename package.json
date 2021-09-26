@@ -17,9 +17,11 @@
     "android:dev" : "yarn android --variant=devDebug --appIdSuffix=dev",
     "android:staging" : "yarn android --variant=stagingDebug --appIdSuffix=staging",
     "fastlane:setup": "bundle install",
-    "fastlane:androidDev": "bundle exec fastlane android build task:assemble flavor:dev type:debug copy:true",
-    "fastlane:androidRelease": "bundle exec fastlane android build task:assemble flavor:production type:release copy:true",
-    "fastlane:androidReleasePlayStore": "bundle exec fastlane android build task:bundle flavor:production type:release toPlayStore:true"
+    "fastlane:androidDevAPK": "bundle exec fastlane android build task:assemble flavor:dev type:debug copy:true",
+    "fastlane:androidReleaseAPK": "bundle exec fastlane android build task:assemble flavor:production type:release copy:true",
+    "fastlane:androidReleaseAABPlayStore": "bundle exec fastlane android build task:bundle flavor:production type:release toPlayStore:true",
+    "fastlane:androidReleaseAPKFirebase": "bundle exec fastlane android build task:assemble flavor:production type:release toFirebase:true",
+    "fastlane:androidReleaseAPKTestFairy": "bundle exec fastlane android build task:assemble flavor:production type:release toTestFairy:true"
   },
   "dependencies": {
     "@react-native-masked-view/masked-view": "^0.2.6",

@@ -66,5 +66,6 @@ buck-out/
 keystore.properties
 signing-key
 google-service-account-credentials.json
+firebase-app-distribution-key.json
 
 storyLoader.js
