@@ -18,7 +18,7 @@
     "android:staging" : "yarn android --variant=stagingDebug --appIdSuffix=staging",
     "fastlane:setup": "bundle install",
     "fastlane:androidDev": "bundle exec fastlane android build task:assemble flavor:dev type:debug copy:true",
-    "fastlane:androidRelease": "bundle exec fastlane android build task:bundle flavor:production type:release copy:true",
+    "fastlane:androidRelease": "bundle exec fastlane android build task:assemble flavor:production type:release copy:true",
     "fastlane:androidReleasePlayStore": "bundle exec fastlane android build task:bundle flavor:production type:release toPlayStore:true"
   },
   "dependencies": {

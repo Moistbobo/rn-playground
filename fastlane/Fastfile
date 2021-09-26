@@ -1,9 +1,27 @@
 
 artifactDir = ENV["ARTIFACT_OUTPUT_DIR"]
+androidDir = ENV["ANDROID_DIR"]
+testFairyAPIKey = ENV["TESTFAIRY_API_KEY"]
+
+
+lane :toTestFairy do |values|
+    apk = values[:apk] if values[:apk]
+    ipa = values[:ipa] if values[:ipa]
+
+    if(!testFairyAPIKey)
+        UI.error("No TESTFAIRY_API_KEY found in .env. Aborting.")
+        next
+    end
+
+    testfairy(
+        api_key: testFairyAPIKey,
+        apk: apk,
+        ipa: ipa
+    )
+end
 
 platform :android do
 
-    androidDir = ENV["ANDROID_DIR"]
 
     lane :build do |values|
        task = values[:task]
@@ -11,6 +29,7 @@ platform :android do
        flavor = values[:flavor]
        copy = values[:copy]
        toPlayStore = values[:toPlayStore]
+       toTestFairy = values[:toTestFairy]
 
        gradle(
            project_dir: androidDir,
@@ -25,8 +44,15 @@ platform :android do
        )
 
         artifacts = []
-        artifacts << lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH] if lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
-        artifacts << lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH] if lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH]
+
+        apkPaths = []
+        aabPaths = []
+
+        apkPaths << lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH] if lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+        aabPaths << lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH] if lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH]
+
+        artifacts += apkPaths
+        artifacts += aabPaths
 
         UI.message("artifacts to be copied")
         UI.message(artifacts);
@@ -49,6 +75,11 @@ platform :android do
                 track: 'internal',
                 release_status: 'draft'
             )
+        end
+
+        if(toTestFairy)
+            # testfairy only supports apk for android
+            toTestFairy(apk: apkPaths[0])
         end
 
     end
