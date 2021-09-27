@@ -1,0 +1,13 @@
+git_url("https://bitbucket.org/appit/appit-fastlane-match-config/src/master/")
+
+storage_mode("git")
+
+username(ENV['APP_STORE_USERNAME'])
+
+team_id(ENV['APP_STORE_TEAM_ID'])
+
+app_identifier(ENV['APP_IDENTIFIERS'].split(","))
+
+type("appstore") # The default type, can be: appstore, adhoc, enterprise or development
+
+# The docs are available on https://docs.fastlane.tools/actions/match

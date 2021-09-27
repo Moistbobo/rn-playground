@@ -1,20 +1,29 @@
-
 artifactDir = ENV["ARTIFACT_OUTPUT_DIR"]
-androidDir = ENV["ANDROID_DIR"]
 testFairyAPIKey = ENV["TESTFAIRY_API_KEY"]
 firebaseAndroidAppId = ENV["FIREBASE_ANDROID_APP_ID"]
 firebaseCliToken = ENV["FIREBASE_CLI_TOKEN"]
 serviceCredentials = ENV["FIREBASE_APP_SERVICE_CREDENTIALS_JSON"]
-xcodeProjPath = ENV["XCODE_PROJ_PATH"]
 
-# import testfairy lane
-import("./Testfairy")
+import("./Helpers")
+
+# bump version for android and ios but doesn't commit
+lane :bumpVersion do |values|
+    type = values[:type] # major, minor, patch
+    flavor = values[:flavor]
+    target = values[:target]
+
+    bumpAndroidVersionAndCode(type:type, flavor: flavor)
+
+    bumpIosVersionAndCode(type:type, target: target)
+end
 
 platform :android do
     # bump version in app/build.gradle and commit it
-    lane :bumpAndCommit do |values|
+    # old lane, need to figure out workflow for how/when to commit
+    private_lane :bumpAndCommit do |values|
         type = values[:type] # major, minor, patch
         flavor = values[:flavor]
+        push = values[:push] # true/false
         gradlePath = "android/app/build.gradle"
 
         oldVersionName = get_version_name(
@@ -24,10 +33,12 @@ platform :android do
             flavor: flavor
         )
 
-        increment_version_name(
-            flavor: flavor,
-            bump_type: type
-        )
+        if(type)
+            increment_version_name(
+                flavor: flavor,
+                bump_type: type
+            )
+        end
 
         increment_version_code(
             flavor: flavor
@@ -51,28 +62,30 @@ platform :android do
             tag: "#{flavor}/v#{newVersionName}-b#{newVersionCode}"
         )
 
-        push_to_git_remote(
-            remote: "origin"
-        )
+        if(push)
+            push_to_git_remote(
+                remote: "origin"
+            )
+        end
     end
 
     lane :build do |values|
-       task = values[:task]
-       buildType = values[:buildType]
+       task = values[:task] #bundle, assemble
+       buildType = values[:buildType] # debug, release
        flavor = values[:flavor]
-       copy = values[:copy]
+       copy = values[:copy] # copy artifacts to ./artifacts folder
        toPlayStore = values[:toPlayStore]
-       toTestFairy = values[:toTestFairy]
        toFirebase = values[:toFirebase]
+       toTestfairy = values[:toTestfairy]
        versionBump = values[:versionBump] # major, minor, patch
 
        gradle(
-           project_dir: androidDir,
+           project_dir: "android/",
            task: "clean"
        )
 
        gradle(
-           project_dir: androidDir,
+           project_dir: "android/",
            task: task,
            build_type: buildType,
            flavor: flavor
@@ -112,10 +125,6 @@ platform :android do
             )
         end
 
-        if(toTestFairy)
-            toTestFairy(apk: apkPaths[0])
-        end
-
         if(toFirebase)
             firebase_app_distribution(
                 app: firebaseAndroidAppId,
@@ -123,6 +132,10 @@ platform :android do
                 #service_credentials_file: serviceCredentials,
                 #android_artifact_path: "/Users/kevinpangappit/Projects/rn-playground/android/app/build/outputs/apk/production/release/app-production-release.apk"
             )
+        end
+
+        if(toTestfairy)
+            toTestFairy(apk: apkPaths[0])
         end
 
         if(versionBump)
@@ -136,6 +149,42 @@ platform :android do
 end
 
 platform :ios do
+     workspace = ENV["IOS_WORKSPACE"]
+     appStoreUsername = ENV["APP_STORE_USERNAME"]
+     connectTeamId = ENV["CONNECT_TEAM_ID"]
+
+    lane :build do |values|
+        toTestFlight = values[:toTestFlight]
+        toFirebase = values[:toFirebase]
+        scheme = values[:scheme]
+
+        gym(
+           output_directory: artifactDir,
+           workspace: workspace,
+           scheme: scheme,
+           output_name: scheme, # name the ipa #{scheme}.ipa for simplicity
+           silent: true,
+           clean: true,
+           export_options:{
+               method: "app-store",
+               stripSwiftSymbols: true
+           }
+        )
+
+        if(toTestFlight)
+           deliver(
+               ipa: artifactDir + scheme + ".ipa",
+               username: appStoreUsername,
+               team_id: connectTeamId,
+               force: true
+           )
+        end
+
+         if(toTestfairy)
+             toTestFairy(ipa: artifactDir + scheme + ".ipa")
+         end
+    end
+
     lane :bumpAndCommit do |values|
         target = values[:target]
         type = values[:type]
