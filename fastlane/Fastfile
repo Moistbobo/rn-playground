@@ -6,14 +6,6 @@ firebaseAndroidAppId = ENV["FIREBASE_ANDROID_APP_ID"]
 firebaseCliToken = ENV["FIREBASE_CLI_TOKEN"]
 serviceCredentials = ENV["FIREBASE_APP_SERVICE_CREDENTIALS_JSON"]
 
-lane :test do |values|
-
-  version_demo = get_version_name(
-    flavor: 'staging'
-  )
-  UI.message("demo flavor: " + version_demo)
-end
-
 # Lane that uploads an apk or ipa to testfairy
 lane :toTestFairy do |values|
     apk = values[:apk]
@@ -95,6 +87,7 @@ platform :android do
        toPlayStore = values[:toPlayStore]
        toTestFairy = values[:toTestFairy]
        toFirebase = values[:toFirebase]
+       versionBump = values[:versionBump] # major, minor, patch
 
        gradle(
            project_dir: androidDir,
@@ -152,6 +145,14 @@ platform :android do
                 firebase_cli_token: firebaseCliToken,
                 #service_credentials_file: serviceCredentials,
                 #android_artifact_path: "/Users/kevinpangappit/Projects/rn-playground/android/app/build/outputs/apk/production/release/app-production-release.apk"
+            )
+        end
+
+        if(versionBump)
+        # todo: how to better differentiate between versions
+            bumpAndCommit(
+                type: versionBump,
+                flavor: flavor
             )
         end
 
