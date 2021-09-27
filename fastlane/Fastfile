@@ -6,6 +6,14 @@ firebaseAndroidAppId = ENV["FIREBASE_ANDROID_APP_ID"]
 firebaseCliToken = ENV["FIREBASE_CLI_TOKEN"]
 serviceCredentials = ENV["FIREBASE_APP_SERVICE_CREDENTIALS_JSON"]
 
+lane :test do |values|
+
+  version_demo = get_version_name(
+    flavor: 'staging'
+  )
+  UI.message("demo flavor: " + version_demo)
+end
+
 # Lane that uploads an apk or ipa to testfairy
 lane :toTestFairy do |values|
     apk = values[:apk]
@@ -33,6 +41,51 @@ lane :toTestFairy do |values|
 end
 
 platform :android do
+
+    # bump version in app/build.gradle and commit it
+    lane :bumpAndCommit do |values|
+        type = values[:type] # major, minor, patch
+        flavor = values[:flavor]
+        gradlePath = "android/app/build.gradle"
+
+        oldVersionName = get_version_name(
+            flavor: flavor
+        )
+        oldVersionCode = get_version_code(
+            flavor: flavor
+        )
+
+        increment_version_name(
+            flavor: flavor,
+            bump_type: type
+        )
+
+        increment_version_code(
+            flavor: flavor
+        )
+
+        newVersionName = get_version_name(
+            flavor: flavor
+        )
+        newVersionCode = get_version_code(
+            flavor: flavor
+        )
+
+        # commit gradle file, add tag, and push to remote
+
+        git_commit(
+            path: gradlePath,
+            message: "[FASTLANE]: bump #{flavor} v#{oldVersionName}(#{oldVersionCode}) -> v#{newVersionName}(#{newVersionCode})"
+        )
+
+        add_git_tag(
+            tag: "#{flavor}/v#{newVersionName}-b#{newVersionCode}"
+        )
+
+        push_to_git_remote(
+            remote: "origin"
+        )
+    end
 
     lane :build do |values|
        task = values[:task]
