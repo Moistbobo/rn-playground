@@ -5,35 +5,12 @@ testFairyAPIKey = ENV["TESTFAIRY_API_KEY"]
 firebaseAndroidAppId = ENV["FIREBASE_ANDROID_APP_ID"]
 firebaseCliToken = ENV["FIREBASE_CLI_TOKEN"]
 serviceCredentials = ENV["FIREBASE_APP_SERVICE_CREDENTIALS_JSON"]
+xcodeProjPath = ENV["XCODE_PROJ_PATH"]
 
-# Lane that uploads an apk or ipa to testfairy
-lane :toTestFairy do |values|
-    apk = values[:apk]
-    ipa = values[:ipa]
-
-    if(!testFairyAPIKey)
-        UI.error("No TESTFAIRY_API_KEY found in .env. Aborting.")
-        next
-    end
-
-    # testfairy only supports apk for android
-    if(apk)
-        testfairy(
-            api_key: testFairyAPIKey,
-            apk: apk
-        )
-    end
-
-    if(ipa)
-        testfairy(
-            api_key: testFairyAPIKey,
-            ipa: ipa
-        )
-    end
-end
+# import testfairy lane
+import("./Testfairy")
 
 platform :android do
-
     # bump version in app/build.gradle and commit it
     lane :bumpAndCommit do |values|
         type = values[:type] # major, minor, patch
@@ -155,6 +132,23 @@ platform :android do
                 flavor: flavor
             )
         end
+    end
+end
 
+platform :ios do
+    lane :bumpAndCommit do |values|
+        target = values[:target]
+        type = values[:type]
+
+        increment_version_number_in_xcodeproj(
+            xcodeproj: xcodeProjPath,
+            bump_type: type,
+            target: target
+        )
+
+        increment_build_number_in_xcodeproj(
+            target: target,
+            xcodeproj: xcodeProjPath
+        )
     end
 end

@@ -1,0 +1,25 @@
+# Lane that uploads an apk or ipa to testfairy
+lane :toTestFairy do |values|
+    apk = values[:apk]
+    ipa = values[:ipa]
+
+    if(!testFairyAPIKey)
+        UI.error("No TESTFAIRY_API_KEY found in .env. Aborting.")
+        next
+    end
+
+    # testfairy only supports apk for android
+    if(apk)
+        testfairy(
+            api_key: testFairyAPIKey,
+            apk: apk
+        )
+    end
+
+    if(ipa)
+        testfairy(
+            api_key: testFairyAPIKey,
+            ipa: ipa
+        )
+    end
+end
