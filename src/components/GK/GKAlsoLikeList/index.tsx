@@ -43,6 +43,7 @@ const GKAlsoLikeList = ({data, onItemPress, label}: Props) => {
       <Spacer size={16} />
       <FlatList
         horizontal
+        showsHorizontalScrollIndicator={false}
         ItemSeparatorComponent={() => (
           <Spacer size={16} orientation="horizontal" />
         )}
