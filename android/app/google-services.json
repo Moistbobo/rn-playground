@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1085912237176",
+    "project_id": "rnplayground-7b2bd",
+    "storage_bucket": "rnplayground-7b2bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1085912237176:android:191c121351b4d63a15598d",
+        "android_client_info": {
+          "package_name": "com.moistbobo.rnplayground"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1085912237176-7igvfh6sgmvg945cpbo66av14odblphu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNSLccdXI_NnrwPNLEZAmSD0Y9SnuYBiw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1085912237176-7igvfh6sgmvg945cpbo66av14odblphu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -3,7 +3,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '11.0'
 
-target 'RNPlayground' do
+def shared_pods
   config = use_native_modules!
 
   use_react_native!(
@@ -12,18 +12,37 @@ target 'RNPlayground' do
     :hermes_enabled => false
   )
 
-  target 'RNPlaygroundTests' do
-    inherit! :complete
-    # Pods for testing
-  end
-
   # Enables Flipper.
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
   # you should disable the next line.
   use_flipper!()
+end
 
-  post_install do |installer|
-    react_native_post_install(installer)
+target 'Production' do
+
+  shared_pods
+  
+  target 'RNPlaygroundTests' do
+    inherit! :complete
+    # Pods for testing
   end
+end
+
+target 'Staging' do
+
+  shared_pods
+  
+end
+
+target 'Dev' do
+
+  shared_pods
+  
+end
+
+
+
+post_install do |installer|
+  react_native_post_install(installer)
 end

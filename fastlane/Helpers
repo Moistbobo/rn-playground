@@ -1,0 +1,67 @@
+xcodeProjPath = ENV["XCODE_PROJ_PATH"]
+
+private_lane :bumpAndroidVersionAndCode do |values|
+    type = values[:type]
+    flavor = values[:flavor]
+
+    # only increment version name if type is provided
+    if(type)
+        increment_version_name(
+            app_project_dir: 'android/app',
+            flavor: flavor,
+            bump_type: type
+        )
+    end
+
+    # version code will always get bumped
+    increment_version_code(
+        app_project_dir: 'android/app',
+        flavor: flavor
+    )
+end
+
+private_lane :bumpIosVersionAndCode do |values|
+    target = values[:target]
+    type = values[:type]
+
+    if(type)
+        increment_version_number_in_xcodeproj(
+            xcodeproj: xcodeProjPath,
+            bump_type: type,
+            target: target
+        )
+    end
+
+    increment_build_number_in_xcodeproj(
+        target: target,
+        xcodeproj: xcodeProjPath
+    )
+end
+
+# Lane that uploads an apk or ipa to testfairy
+lane :toTestFairy do |values|
+    apk = values[:apk]
+    ipa = values[:ipa]
+    xcodeProjPath = ENV["XCODE_PROJ_PATH"]
+    testFairyAPIKey=ENV["TESTFAIRY_API_KEY"]
+
+    if(!testFairyAPIKey)
+        UI.error("No TESTFAIRY_API_KEY found in .env. Aborting.")
+        next
+    end
+
+    # testfairy only supports apk for android
+    if(apk)
+        testfairy(
+            api_key: testFairyAPIKey,
+            apk: apk
+        )
+    end
+
+    if(ipa)
+        testfairy(
+            api_key: testFairyAPIKey,
+            ipa: ipa
+        )
+    end
+end

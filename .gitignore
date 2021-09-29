@@ -59,6 +59,13 @@ buck-out/
 /ios/Pods/
 
 .env.development
+.env.production
+.env.staging
 .env
+
+keystore.properties
+signing-key
+google-service-account-credentials.json
+firebase-app-distribution-key.json
 
 storyLoader.js
