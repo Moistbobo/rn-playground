@@ -6,7 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {ReanimatedStackParamList} from 'navigation/RootNavigator/ReanimatedStack';
 
-const routes = ['ReactiveScrollview', 'SpotifyLikePage'];
+const routes = ['ReactiveBGScrollview', 'SpotifyLikePage'];
 
 const ReanimatedLanding = () => {
   const {navigate} =

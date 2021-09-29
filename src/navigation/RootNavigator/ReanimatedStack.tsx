@@ -8,7 +8,7 @@ import DrawerButton from 'components/DrawerButton';
 export type ReanimatedStackParamList = {
   Landing: undefined;
 
-  ReactiveScrollview: undefined;
+  ReactiveBGScrollview: undefined;
 
   SpotifyLikePage: undefined;
 };
@@ -30,7 +30,7 @@ const ReanimatedStack = () => {
         component={ReanimatedLanding}
       />
       <Stack.Screen
-        name="ReactiveScrollview"
+        name="ReactiveBGScrollview"
         component={PanningScrollWithReactiveBackground}
       />
 
