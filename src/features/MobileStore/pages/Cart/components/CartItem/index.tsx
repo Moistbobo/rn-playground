@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
   },
   newQuantity: {
     fontSize: 16,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     paddingVertical: 4,
     paddingHorizontal: 8,
     borderWidth: 1,
