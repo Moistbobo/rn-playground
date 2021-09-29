@@ -16,6 +16,8 @@
     "prepare": "husky install",
     "android:dev" : "yarn android --variant=devDebug --appIdSuffix=dev",
     "android:staging" : "yarn android --variant=stagingDebug --appIdSuffix=staging",
+    "ios:dev": "yarn ios --scheme=Dev",
+    "ios:staging": "yarn ios --scheme=Staging",
     "fastlane:setup": "bundle install",
     "fastlane:android": "bundle exec fastlane android build",
     "fastlane:androidReleaseAPK": "yarn fastlane:android task:assemble flavor:production type:release copy:true",
