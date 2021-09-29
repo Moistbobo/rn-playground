@@ -86,8 +86,8 @@ const ReactiveBgScrollView = ({
   const droopingAnimation = useDerivedValue(() => {
     const interpolatedValue = interpolate(
       scrollOffset.value,
-      [-200, SIZE.height],
-      [0, SIZE.height * 2.5],
+      [-200, SIZE.height / 2, SIZE.height],
+      [-SIZE.height, SIZE.height, SIZE.height * 3],
       Extrapolate.CLAMP,
     );
 
@@ -102,9 +102,9 @@ const ReactiveBgScrollView = ({
     } = droopingAnimation;
 
     return {
-      d: `M -50 ${-SIZE.height} 
+      d: `M -200 ${-SIZE.height - 50} 
       C ${-25} ${SIZE.height + y}, ${SIZE.width + 20} ${SIZE.height + y}, 
-      ${SIZE.width + 50} ${-SIZE.height}`,
+      ${SIZE.width + 200} ${-SIZE.height - 50}`,
     };
   });
 

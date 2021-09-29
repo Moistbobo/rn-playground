@@ -5,7 +5,7 @@ import ReactiveBgScrollView from 'components/Reanimated/ReactiveBgScrollView';
 
 const PanningScrollWithReactiveBackground = () => {
   return (
-    <ReactiveBgScrollView>
+    <ReactiveBgScrollView panHeight={200}>
       <Text>{text}</Text>
     </ReactiveBgScrollView>
   );
