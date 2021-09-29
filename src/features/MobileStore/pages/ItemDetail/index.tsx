@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 32,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     color: Design.colors.reddishBrown,
     alignSelf: 'flex-start',
   },
