@@ -41,6 +41,9 @@ type Props = {
   headerOverlayColor?: ColorValue;
 };
 
+/**
+ * A component that mimics the panning scrollView behavior found in the mox bank app.
+ */
 const PanningScrollView = ({
   headerImage,
   badgeImage,
@@ -54,6 +57,8 @@ const PanningScrollView = ({
     animatedHeaderImageStyle,
     animatedHeaderStyle,
     animatedHeaderOverlay,
+    onContentSizeChange,
+    onLayout,
   } = useAnimations();
 
   return (
@@ -94,6 +99,8 @@ const PanningScrollView = ({
         onScroll={scrollHandler}
         scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
+        onLayout={onLayout}
+        onContentSizeChange={onContentSizeChange}
         contentContainerStyle={[
           styles.contentContainerStyle,
           {backgroundColor},
