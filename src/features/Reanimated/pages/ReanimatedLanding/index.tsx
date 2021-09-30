@@ -1,12 +1,13 @@
 import React from 'react';
 
-import {FlatList, StyleSheet, View} from 'react-native';
+import {FlatList, StyleSheet} from 'react-native';
 import TransparentButton from 'components/TransparentButton';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {ReanimatedStackParamList} from 'navigation/RootNavigator/ReanimatedStack';
+import Spacer from 'components/Spacer';
 
-const routes = ['ReactiveBGScrollview', 'SpotifyLikePage'];
+const routes = ['ReactiveBGScrollview', 'SpotifyLikePage', 'MoxLikeScrollView'];
 
 const ReanimatedLanding = () => {
   const {navigate} =
@@ -25,7 +26,7 @@ const ReanimatedLanding = () => {
   return (
     <FlatList
       contentContainerStyle={styles.contentContainer}
-      ItemSeparatorComponent={() => <View style={{height: 16}} />}
+      ItemSeparatorComponent={() => <Spacer size={16} />}
       data={routes}
       renderItem={renderItem}
     />

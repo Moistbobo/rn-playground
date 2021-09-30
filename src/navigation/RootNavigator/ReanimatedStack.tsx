@@ -4,9 +4,12 @@ import SpotifyLikePage from 'features/Reanimated/pages/SpotifyLikePage';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ReanimatedLanding from 'features/Reanimated/pages/ReanimatedLanding';
 import DrawerButton from 'components/DrawerButton';
+import MoxLikeScrollView from 'features/Reanimated/pages/MoxLikeScrollView';
 
 export type ReanimatedStackParamList = {
   Landing: undefined;
+
+  MoxLikeScrollView: undefined;
 
   ReactiveBGScrollview: undefined;
 
@@ -29,6 +32,7 @@ const ReanimatedStack = () => {
         name="Landing"
         component={ReanimatedLanding}
       />
+
       <Stack.Screen
         name="ReactiveBGScrollview"
         component={PanningScrollWithReactiveBackground}
@@ -40,6 +44,14 @@ const ReanimatedStack = () => {
         }}
         name="SpotifyLikePage"
         component={SpotifyLikePage}
+      />
+
+      <Stack.Screen
+        options={{
+          headerShown: true,
+        }}
+        name="MoxLikeScrollView"
+        component={MoxLikeScrollView}
       />
     </Stack.Navigator>
   );
