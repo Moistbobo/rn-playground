@@ -23,7 +23,6 @@ DerivedData
 
 # Android/IntelliJ
 #
-build/
 .idea
 .gradle
 local.properties
@@ -69,3 +68,6 @@ google-service-account-credentials.json
 firebase-app-distribution-key.json
 
 storyLoader.js
+
+*.hprof
+artifacts
