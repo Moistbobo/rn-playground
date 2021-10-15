@@ -5,7 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ReanimatedLanding from 'features/Reanimated/pages/ReanimatedLanding';
 import DrawerButton from 'components/DrawerButton';
 import MoxLikeScrollView from 'features/Reanimated/pages/MoxLikeScrollView';
-import AnimatedBottomTabs from 'features/Reanimated/pages/AnimatedBottomTabs';
+import AnimatedBottomTabButton from 'features/Reanimated/pages/AnimatedBottomTabs';
 
 export type ReanimatedStackParamList = {
   Landing: undefined;
@@ -62,7 +62,7 @@ const ReanimatedStack = () => {
           headerShown: false,
         }}
         name="AnimatedBottomTabs"
-        component={AnimatedBottomTabs}
+        component={AnimatedBottomTabButton}
       />
     </Stack.Navigator>
   );

@@ -14,12 +14,12 @@ type Props = {
 
 const CenterViewWithNavigation = ({children, backgroundColor}: Props) => {
   // @ts-ignore
-  const comp = () => <CenterView backgroundColor={backgroundColor}>{children}</CenterView>
+  const comp = () => <CenterView alignContent={'stretch'} backgroundColor={backgroundColor}>{children}</CenterView>
 
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name={'main'} component={comp}/>
+        <Stack.Screen name={'main'} component={()=> children}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
