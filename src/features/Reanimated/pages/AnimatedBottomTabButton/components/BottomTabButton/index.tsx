@@ -6,21 +6,26 @@ import {
   StyleSheet,
   Image,
   BackHandler,
+  ImageSourcePropType,
+  ColorValue,
 } from 'react-native';
-import {plus, shoppingCart} from 'assets/images';
+import {plus} from 'assets/images';
 import SubButton from '../SubButton';
 import useAnimations from './animations';
 
+type ButtonType = {
+  backgroundColor: ColorValue;
+  onPress: () => void;
+  image: ImageSourcePropType;
+};
+
 interface Props {
-  /**
-   * OnPress callback of the main button.
-   */
-  onPress?: () => void;
+  mainButton: ButtonType;
 
   /**
-   * OnPress handlers for the 3 sub buttons
+   * The data for the sub buttons. See the ButtonType type above for more details.
    */
-  subButtonOnPress?: [() => void, () => void, () => void];
+  subButtons: [ButtonType, ButtonType, ButtonType];
 }
 
 /**
@@ -28,7 +33,7 @@ interface Props {
  * On Press, it will play a spinning animation, exposing 3 sub buttons from
  * underneath.
  */
-const MainButton = ({onPress, subButtonOnPress}: Props) => {
+const ButtomTabButton = ({mainButton, subButtons}: Props) => {
   React.useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', customBackHandler);
 
@@ -40,8 +45,8 @@ const MainButton = ({onPress, subButtonOnPress}: Props) => {
     useAnimations();
 
   const onPressMainButton = () => {
-    if (!opened.value && onPress) {
-      onPress();
+    if (!opened.value && mainButton.onPress) {
+      mainButton.onPress();
     }
     onPressed();
   };
@@ -65,21 +70,39 @@ const MainButton = ({onPress, subButtonOnPress}: Props) => {
       <View style={styles.buttonContainer}>
         <SubButton
           animatedStyles={animOne}
-          buttonStyle={styles.buttonStyle}
-          image={shoppingCart}
-          onPress={subButtonOnPress && subButtonOnPress[0]}
+          buttonStyle={[
+            styles.buttonStyle,
+            // @ts-ignore
+            subButtons[0].backgroundColor && {
+              backgroundColor: subButtons[0].backgroundColor,
+            },
+          ]}
+          image={subButtons[0].image}
+          onPress={subButtons && subButtons[0].onPress}
         />
         <SubButton
           animatedStyles={animTwo}
-          buttonStyle={styles.buttonStyle}
-          image={shoppingCart}
-          onPress={subButtonOnPress && subButtonOnPress[1]}
+          buttonStyle={[
+            styles.buttonStyle,
+            // @ts-ignore
+            subButtons[1].backgroundColor && {
+              backgroundColor: subButtons[1].backgroundColor,
+            },
+          ]}
+          image={subButtons[1].image}
+          onPress={subButtons && subButtons[1].onPress}
         />
         <SubButton
           animatedStyles={animThree}
-          buttonStyle={styles.buttonStyle}
-          image={shoppingCart}
-          onPress={subButtonOnPress && subButtonOnPress[2]}
+          buttonStyle={[
+            styles.buttonStyle,
+            // @ts-ignore
+            subButtons[2].backgroundColor && {
+              backgroundColor: subButtons[2].backgroundColor,
+            },
+          ]}
+          image={subButtons[2].image}
+          onPress={subButtons && subButtons[2].onPress}
         />
       </View>
 
@@ -122,4 +145,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MainButton;
+export default ButtomTabButton;
