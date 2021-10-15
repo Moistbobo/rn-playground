@@ -9,6 +9,8 @@ import "./rn-addons";
 import { Provider } from "react-redux";
 import store from "store/RootStore";
 import { NavigationContainer } from "@react-navigation/native";
+import FlashMessage from 'react-native-flash-message';
+import React from 'react';
 
 // enables knobs for all stories
 addDecorator(withKnobs);

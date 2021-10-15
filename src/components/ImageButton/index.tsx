@@ -5,6 +5,7 @@ import {
   Image,
   ImageSourcePropType,
   ImageStyle,
+  StyleProp,
   StyleSheet,
   TouchableOpacity,
   ViewStyle,
@@ -29,12 +30,12 @@ interface Props extends AccessibilityProps {
   /**
    * Override image style
    */
-  imageStyle?: ImageStyle;
+  imageStyle?: StyleProp<ImageStyle>;
 
   /**
    * Callback to handle the button press.
    */
-  onPress: () => void;
+  onPress?: () => void;
 }
 
 /**

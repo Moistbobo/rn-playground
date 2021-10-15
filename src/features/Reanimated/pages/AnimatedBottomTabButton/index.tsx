@@ -5,7 +5,8 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import {View} from 'react-native';
-import AnimatedDrawerButton from 'features/Reanimated/pages/AnimatedBottomTabs/components/AnimatedDrawerButton';
+import MainButton from 'features/Reanimated/pages/AnimatedBottomTabButton/components/MainButton';
+import FlashMessageWrapper from 'lib/FlashMessageWrapper';
 
 const DummyPage = () => {
   return (
@@ -20,6 +21,10 @@ const DummyPage = () => {
 const Tabs = createBottomTabNavigator();
 
 const AnimatedBottomTabButton = () => {
+  const onPressHandler = (idx: number) => () => {
+    FlashMessageWrapper.showFlashMessage(`Pressed button ${idx + 1}`);
+  };
+
   return (
     <Tabs.Navigator
       screenOptions={{
@@ -42,7 +47,15 @@ const AnimatedBottomTabButton = () => {
                   bottom: 48,
                 }}
               >
-                <AnimatedDrawerButton {...props} onPress={() => {}} />
+                <MainButton
+                  subButtonOnPress={[
+                    onPressHandler(0),
+                    onPressHandler(1),
+                    onPressHandler(2),
+                  ]}
+                  {...props}
+                  onPress={() => {}}
+                />
               </View>
             );
           },
