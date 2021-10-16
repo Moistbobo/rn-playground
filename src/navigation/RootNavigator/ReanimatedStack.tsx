@@ -5,6 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ReanimatedLanding from 'features/Reanimated/pages/ReanimatedLanding';
 import DrawerButton from 'components/DrawerButton';
 import MoxLikeScrollView from 'features/Reanimated/pages/MoxLikeScrollView';
+import AnimatedBottomTabButton from 'features/Reanimated/pages/AnimatedBottomTabButton';
 
 export type ReanimatedStackParamList = {
   Landing: undefined;
@@ -14,6 +15,8 @@ export type ReanimatedStackParamList = {
   ReactiveBGScrollview: undefined;
 
   SpotifyLikePage: undefined;
+
+  AnimatedBottomTabs: undefined;
 };
 
 const Stack = createNativeStackNavigator<ReanimatedStackParamList>();
@@ -52,6 +55,14 @@ const ReanimatedStack = () => {
         }}
         name="MoxLikeScrollView"
         component={MoxLikeScrollView}
+      />
+
+      <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
+        name="AnimatedBottomTabs"
+        component={AnimatedBottomTabButton}
       />
     </Stack.Navigator>
   );

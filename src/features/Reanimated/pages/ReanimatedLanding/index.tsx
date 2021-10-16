@@ -7,7 +7,12 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {ReanimatedStackParamList} from 'navigation/RootNavigator/ReanimatedStack';
 import Spacer from 'components/Spacer';
 
-const routes = ['ReactiveBGScrollview', 'SpotifyLikePage', 'MoxLikeScrollView'];
+const routes = [
+  'ReactiveBGScrollview',
+  'SpotifyLikePage',
+  'MoxLikeScrollView',
+  'AnimatedBottomTabs',
+];
 
 const ReanimatedLanding = () => {
   const {navigate} =
