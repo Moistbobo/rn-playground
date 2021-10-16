@@ -24,9 +24,6 @@ const AnimatedBottomTabButton = () => {
     <Tabs.Navigator
       screenOptions={{
         headerLeft: () => <BackButton />,
-        tabBarStyle: {
-          position: 'absolute',
-        },
       }}
     >
       <Tabs.Screen name="Placeholder1" component={MoxLikeScrollView} />
