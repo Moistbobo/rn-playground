@@ -8,10 +8,9 @@ import {View} from 'react-native';
 import BottomTabButton from 'features/Reanimated/pages/AnimatedBottomTabButton/components/BottomTabButton';
 import FlashMessageWrapper from 'lib/FlashMessageWrapper';
 import {dollarSign, mdr1, minus, plus} from 'assets/images';
-import MoxLikeScrollView from 'features/Reanimated/pages/MoxLikeScrollView';
 import SpotifyLikePage from 'features/Reanimated/pages/SpotifyLikePage';
 import BackButton from 'components/BackButton';
-import PanningScrollWithReactiveBackground from 'features/Reanimated/pages/PanningScrollWithReactiveBackground';
+import LoadingPage from 'components/LoadingPage';
 
 const Tabs = createBottomTabNavigator();
 
@@ -26,8 +25,8 @@ const AnimatedBottomTabButton = () => {
         headerLeft: () => <BackButton />,
       }}
     >
-      <Tabs.Screen name="Placeholder1" component={MoxLikeScrollView} />
-      <Tabs.Screen name="Placeholder2" component={MoxLikeScrollView} />
+      <Tabs.Screen name="Placeholder1" component={LoadingPage} />
+      <Tabs.Screen name="Placeholder2" component={LoadingPage} />
       <Tabs.Screen
         name="Center"
         component={SpotifyLikePage}
@@ -70,14 +69,8 @@ const AnimatedBottomTabButton = () => {
           },
         }}
       />
-      <Tabs.Screen
-        name="Placeholder3"
-        component={PanningScrollWithReactiveBackground}
-      />
-      <Tabs.Screen
-        name="Placeholder4"
-        component={PanningScrollWithReactiveBackground}
-      />
+      <Tabs.Screen name="Placeholder3" component={LoadingPage} />
+      <Tabs.Screen name="Placeholder4" component={LoadingPage} />
     </Tabs.Navigator>
   );
 };
